@@ -1,9 +1,5 @@
 import java.util.HashMap;
-<<<<<<< HEAD
-=======
 import java.util.Map;
->>>>>>> 403bcf4a1287d44a98005e90731744639059bb26
-
 /**
  * Created by Anjana Senanayake on 11/3/2017.
  */
@@ -35,20 +31,12 @@ public class Router
         }
         return false;
     }
-
-<<<<<<< HEAD
-    /*public void cycleLinks()//Incomplete method,getOutputLink() method is to be completed
-    {
-        for(Map.Entry<Integer,Link> entry : linkMap.entrySet())
-        {
-            for(int j=0;j<entry.getValue().sizeForwardQueue();j++)//link path has to be stored
-=======
-    public void cycleLinks()//Incomplete method
+    
+    /*public void cycleLinks()//Incomplete method.getOutputLink() is not implemented.
     {
         for(Map.Entry<Integer,Link> entry : linkMap.entrySet())
         {
             for(int j=0;j<entry.getValue().sizeForwardQueue();j++)
->>>>>>> 403bcf4a1287d44a98005e90731744639059bb26
             {
                 for(int t=0;t<i;t++)
                 {
@@ -57,9 +45,7 @@ public class Router
                 entry.getValue().forwardQueue.pollFirst().getDestinationNode().getOutputLink().forwardPacketTransmission();
             }
         }
-<<<<<<< HEAD
+
     }*/
-=======
     }
->>>>>>> 403bcf4a1287d44a98005e90731744639059bb26
 }
