@@ -1,2 +1,4 @@
-# CO227-Packet-Forwarding-Simulator
+<<<<<<< HEAD
+# CO227-PacketForwardingSimulator
 Packet Forwarding Simulator for CO227 Project
+
