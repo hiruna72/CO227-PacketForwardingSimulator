@@ -8,6 +8,7 @@ public class Packet
     private String packetId;
     private String sourceNode;
     private String destinationNode;
+    private String nextTargetRouterId;
     private ArrayList route;
 
     public Packet(String packetId,String sourceNode,String destinationNode)
@@ -15,6 +16,11 @@ public class Packet
         this.packetId = packetId;
         this.sourceNode = sourceNode;
         this.destinationNode = destinationNode;
+    }
+
+    public void setNextTargetRouterId(String targetRouterId)
+    {
+        nextTargetRouterId = targetRouterId;
     }
 
     public void setRoute(String routeId)
