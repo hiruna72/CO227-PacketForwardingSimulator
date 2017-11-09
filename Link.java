@@ -1,56 +1,33 @@
 import java.util.ArrayDeque;
-import java.util.Deque;
 /**
  * Created by Anjana Senanayake on 11/3/2017.
  **/
 public class Link
 {
     private String linkId;
-    public Deque<Packet> forwardQueue = new ArrayDeque<>();
-    public Deque<Packet> backwardQueue = new ArrayDeque<>();
+    public ArrayDeque<Packet>[] queue = new ArrayDeque[2];
 
-    public Link()
+    public Link(String linkId)
     {
-       // this.linkId = linkID;
+        queue[0] = new ArrayDeque<>();
+        queue[1] = new ArrayDeque<>();
+        this.linkId = linkId;
     }
 
-    //Initial packet loading to at the source node
-    public void enqueForwardQueue(Packet packet)
+    //Packet removing from the incoming queue according to FIFO concept
+    public Packet dequeIncomingQueue(ArrayDeque<Packet> queue)
     {
-        forwardQueue.addLast(packet);
-        forwardQueue.element();
+        return queue.removeFirst();
     }
 
-    //Packet forwarding from link to link
-    public  void forwardPacketTransmission(Link link)
+    public int queueSize(ArrayDeque<Packet> queue)
     {
-        forwardQueue.addLast(link.dequeForwardQueue());
+        return queue.size();
     }
 
-    //Packet removing in FIFO concept
-    public Packet dequeForwardQueue()
+    public void clearQueue(ArrayDeque<Packet> queue)
     {
-        return forwardQueue.removeFirst();
-    }
-
-    public int sizeForwardQueue()
-    {
-        return forwardQueue.size();
-    }
-
-    public int sizeBackwardQueue()
-    {
-        return backwardQueue.size();
-    }
-
-    public void clearForwardQueue()
-    {
-        forwardQueue.clear();
-    }
-
-    public void clearBackwardQueue()
-    {
-        backwardQueue.clear();
+        queue.clear();
     }
 
     public String getLinkId()
