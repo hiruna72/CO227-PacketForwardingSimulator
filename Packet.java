@@ -1,3 +1,5 @@
+package co227PacketSimulator;
+
 /**
  * Created by Anjana Senanayake on 11/3/2017.
  */
@@ -9,13 +11,14 @@ public class Packet
     private String sourceNode;
     private String destinationNode;
     private String nextTargetRouterId;
-    private ArrayList route;
+    private ArrayList<String> route;
 
     public Packet(String packetId,String sourceNode,String destinationNode)
     {
         this.packetId = packetId;
         this.sourceNode = sourceNode;
         this.destinationNode = destinationNode;
+        this.route = new ArrayList<String>();
     }
 
     public void setNextTargetRouterId(String targetRouterId)
@@ -49,4 +52,3 @@ public class Packet
     }
 
 }
-
