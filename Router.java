@@ -91,7 +91,7 @@ public class Router
 //        return false;
 //    }
 
-    /**Incomplete method.getOutputLink() is not implemented and few more coding has to be done*/
+   
     /*public void cycleLinks()
     {
         for(Map.Entry<Integer,Link> entry : linkMap.entrySet())
