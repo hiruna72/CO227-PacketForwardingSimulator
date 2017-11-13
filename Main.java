@@ -81,10 +81,30 @@ public class Main {
 		
 		settingTopology = true;
 		
-		Packet firstPacket = new Packet("firstPacket","2","0");
-		firstPacket.setRoute("routerID 2");
-		Links.get("2 to 1").addPacketIn(firstPacket);
 		
+		
+		
+//		Packet firstPacket = new Packet("firstPacket","2","0");
+//		firstPacket.setRoute("routerID 2");
+//		Links.get("2 to 1").addPacketIn(firstPacket);
+		
+		Packet firstPacket = new Packet("firstPacket","2","0");
+		Routers.get(2).addToPCconnectedQ(firstPacket);
+		
+		Packet p3 = new Packet("p3","2","0");
+		Routers.get(2).addToPCconnectedQ(p3);
+		
+		Packet p4 = new Packet("p4","2","0");
+		Routers.get(2).addToPCconnectedQ(p4);
+		
+		Packet p5 = new Packet("p5","2","0");
+		Routers.get(2).addToPCconnectedQ(p5);
+		
+		Packet p6 = new Packet("p6","2","0");
+		Routers.get(2).addToPCconnectedQ(p6);
+		
+		Packet p7 = new Packet("p7","2","0");
+		Routers.get(2).addToPCconnectedQ(p7);
 		Packet secondPacket = new Packet("secondPacket","0","3");
 		secondPacket.setRoute("routerID 0");
 		Links.get("0 to 2").addPacketIn(secondPacket);

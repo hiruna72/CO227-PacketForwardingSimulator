@@ -43,24 +43,29 @@ public class Router
 	
 		}
 		//check the PC connected queue after checking links
-		Packet tempPacket = pcConnectedQ.remove();
-		int nextRouter=this.forwardingTable[routerID][Integer.parseInt(tempPacket.getDestinationNode())];
-		if(nextRouter==-1){
-			//destination arrived
-			System.out.println(tempPacket.getPacketId()+"  destination arrived cycleNo "+cycleNo);
+		if(!pcConnectedQ.isEmpty()){
+			Packet tempPacket = pcConnectedQ.remove();
+			int nextRouter=this.forwardingTable[routerID][Integer.parseInt(tempPacket.getDestinationNode())];
+			if(nextRouter==-1){
+				//destination arrived
+				System.out.println(tempPacket.getPacketId()+"  destination arrived cycleNo "+cycleNo);
+			}
+			else{
+				String tempKey2=routerID+" to "+nextRouter;
+				tempPacket.setRoute("routerID "+routerID+" cycleNo "+cycleNo);
+				links.get(tempKey2).addPacketIn(tempPacket);
+			}
 		}
-		else{
-			String tempKey2=routerID+" to "+nextRouter;
-			tempPacket.setRoute("routerID "+routerID+" cycleNo "+cycleNo);
-			links.get(tempKey2).addPacketIn(tempPacket);
-		}
+		
 		
 	}
 	public void addToPCconnectedQ(Packet P){
 		P.setRoute("routerID "+routerID);
-    	if(!pcConnectedQ.add(P)){
-    		//add packet to garbageHeap
+    	if(pcConnectedQ.size()<queueLimit ){
+    		pcConnectedQ.add(P);
+    		return;    		
     	}
+    	System.out.println(P.getPacketId()+" is lost in router "+this.routerID);
 	}
 
 
