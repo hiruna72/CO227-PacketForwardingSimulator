@@ -1,23 +1,33 @@
 package co227PacketSimulator;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Main {
+import javax.swing.Timer;
+
+public class Main implements ActionListener {
 	
 	
 	public static int noRouters = 0,noLinks;
+	public static ArrayList<Router>Routers;
+	private int cycleNo=0;
 	
+	Main(){
+		Timer watch = new Timer(1000, this);
+		watch.start();
+	}
 	
 	public static void main(String[] args) {
 		HashMap<String,Link>Links;
 		int[][] adjecencyMat = null,forwardingTable;
 		boolean settingTopology=false;
 		Links = new HashMap<String,Link>();
-		ArrayList<Router>Routers = new ArrayList<Router>();
+		Routers = new ArrayList<Router>();
 		
 		
 		boolean firstLine=true;
@@ -79,6 +89,8 @@ public class Main {
 			Routers.add(tempRouter);
 		}
 		
+		gui227 inputWindow= new gui227();
+		
 		settingTopology = true;
 		
 		
@@ -88,44 +100,62 @@ public class Main {
 //		firstPacket.setRoute("routerID 2");
 //		Links.get("2 to 1").addPacketIn(firstPacket);
 		
-		Packet firstPacket = new Packet("firstPacket","2","0");
-		Routers.get(2).addToPCconnectedQ(firstPacket);
+//		Packet firstPacket = new Packet("firstPacket","2","0");
+//		Routers.get(2).addToPCconnectedQ(firstPacket);
+//		
+//		Packet p3 = new Packet("p3","2","0");
+//		Routers.get(2).addToPCconnectedQ(p3);
+//		
+//		Packet p4 = new Packet("p4","2","0");
+//		Routers.get(2).addToPCconnectedQ(p4);
+//		
+//		Packet p5 = new Packet("p5","2","0");
+//		Routers.get(2).addToPCconnectedQ(p5);
+//		
+//		Packet p6 = new Packet("p6","2","0");
+//		Routers.get(2).addToPCconnectedQ(p6);
+//		
+//		Packet p7 = new Packet("p7","2","0");
+//		Routers.get(2).addToPCconnectedQ(p7);
+//		Packet secondPacket = new Packet("secondPacket","0","3");
+//		secondPacket.setRoute("routerID 0");
+//		Links.get("0 to 2").addPacketIn(secondPacket);
 		
-		Packet p3 = new Packet("p3","2","0");
-		Routers.get(2).addToPCconnectedQ(p3);
 		
-		Packet p4 = new Packet("p4","2","0");
-		Routers.get(2).addToPCconnectedQ(p4);
 		
-		Packet p5 = new Packet("p5","2","0");
-		Routers.get(2).addToPCconnectedQ(p5);
 		
-		Packet p6 = new Packet("p6","2","0");
-		Routers.get(2).addToPCconnectedQ(p6);
 		
-		Packet p7 = new Packet("p7","2","0");
-		Routers.get(2).addToPCconnectedQ(p7);
-		Packet secondPacket = new Packet("secondPacket","0","3");
-		secondPacket.setRoute("routerID 0");
-		Links.get("0 to 2").addPacketIn(secondPacket);
 		
-		int cycleNo=0;
-		while(cycleNo<10){
-			for(int i=0;i<noRouters;i++){
-				Routers.get(i).process(cycleNo);
-			}
-			cycleNo++;
-		}
-		System.out.println("firstPacket");
-		for(int i=0;i<firstPacket.getRoute().size();i++){
-			System.out.println(firstPacket.getRoute().get(i));
-		}
-		System.out.println("secondPacket");
-		for(int i=0;i<secondPacket.getRoute().size();i++){
-			System.out.println(secondPacket.getRoute().get(i));
-		}
+		Main testObject = new Main();
+		
+		
+		
+//		while(cycleNo<1000000){
+//			for(int i=0;i<noRouters;i++){
+//				Routers.get(i).process(cycleNo);
+//			}
+//			cycleNo++;
+//		}
+		System.out.println("time out");
+//		for(int i=0;i<firstPacket.getRoute().size();i++){
+//			System.out.println(firstPacket.getRoute().get(i));
+//		}
+//		System.out.println("secondPacket");
+//		for(int i=0;i<secondPacket.getRoute().size();i++){
+//			System.out.println(secondPacket.getRoute().get(i));
+//		}
 		
 
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("inside");
+		for(int i=0;i<noRouters;i++){
+			Routers.get(i).process(cycleNo);
+			cycleNo++;
+		}
+		
 	}
 
 }
