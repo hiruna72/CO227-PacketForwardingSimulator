@@ -2,7 +2,7 @@
 Packet Forwarding Simulator for CO227 Project
 
 
-#Compling#
+#Compling
 
 *create a new javaFX project in your IDE
 
@@ -14,3 +14,4 @@ Packet Forwarding Simulator for CO227 Project
 (that's probably y we get dat nullpointer exception)
 
 if it seems like any background images are not rendering, set the paths correctly in corresponding .fxml file
+
