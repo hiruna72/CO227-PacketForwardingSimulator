@@ -11,6 +11,7 @@ to run
 compile and run app.java file
 
 example input method used 
+
 9 14
 0 1 10 10
 0 7 20 10
