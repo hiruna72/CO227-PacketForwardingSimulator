@@ -28,7 +28,7 @@ public class Simulator {
 		this.setUpForwadingTable();
 		Packets = new HashMap<String,Packet>();
 		gui227 inputWindow= new gui227();
-		
+		this.settingTopology = true;
 		this.start();
 	}
 	private void start() {
@@ -77,7 +77,7 @@ public class Simulator {
 				}
 				
 			}
-			System.out.println("################################## time: "+timeElapsed);
+			System.out.println("######################################################### time: "+timeElapsed);
 		}
 		//check for new injected packets
 		gui227.addNewPackets();
@@ -86,7 +86,7 @@ public class Simulator {
 	private void executeNextEvent(String key, double leastEventTime) {
 		
 		String eventID = Packets.get(key).getNextEvent().getEventID();
-		if(eventID.equals("wait")){
+		if(eventID.equals("wait") || eventID.equals("lose") || eventID.equals("reached")){
 			Packets.get(key).getNextEvent().excuteEvent(leastEventTime);
 			Packets.get(key).addToEvents();
 		}
@@ -112,15 +112,15 @@ public class Simulator {
 			if(InputBuffer.get(currentLocation).packetIsAtExit(packetName.toString())){
 				int nextRouter=this.forwardingTable[routerID][Packets.get(packetName).getDest()];
 				if(nextRouter==-1){
-					Simulator.Packets.get(packetName).markAsLost();
-					Simulator.InputBuffer.get(currentLocation).removePacket();
-					System.out.println(packetName+" reached destination");
+					NextEvent newEvent = new Reach("reached",Routers.get(routerID+"").getProcessingDelay(),packetName,currentLocation);
+					Packets.get(packetName).setNextEvent(newEvent);
+					
 					
 				}
 				
 				
 				else if(checkOutputQ(nextRouter,routerID,Packets.get(packetName).getSize())){
-					NextEvent newEvent = new ProcessSwitch("process&switch",Routers.get(currentLocation.split(" to ")[1]).getProcessingDelay(),currentLocation,routerID+" to "+nextRouter,packetName);
+					NextEvent newEvent = new ProcessSwitch("process&switch",Routers.get(routerID+"").getProcessingDelay(),currentLocation,routerID+" to "+nextRouter,packetName);
 					Packets.get(packetName).setNextEvent(newEvent);
 				}
 				else{
@@ -165,7 +165,7 @@ public class Simulator {
 				Packets.get(packetName).setNextEvent(newEvent);
 			}
 			else{
-				NextEvent newEvent = new Lose("lose",Double.MAX_VALUE,packetName);
+				NextEvent newEvent = new Lose("lose",Double.MAX_VALUE,packetName,currentLocation);
 				Packets.get(packetName).setNextEvent(newEvent);
 			}
 		}
@@ -210,6 +210,7 @@ public class Simulator {
         			int router2=Integer.valueOf(cmd[1]);
         			double linkDistance = Double.parseDouble(cmd[2]);
         			double linkSpeed = Double.parseDouble(cmd[3]);
+        			double qCapacity = linkSpeed;
         			
         			Link tempLink1 = new Link((router1)+" to "+(router2),"onLink",linkDistance,linkSpeed);
         			Links.put((router1)+" to "+(router2), tempLink1);
@@ -217,10 +218,10 @@ public class Simulator {
         			Links.put((router2)+" to "+(router1), tempLink2);
         			
         			
-        			Queue tempQ1 = new Queue((router1)+" to "+(router2),"InputQ",""+(router2),linkSpeed);
-        			Queue tempQ2 = new Queue((router2)+" to "+(router1),"InputQ",""+(router1),linkSpeed);
-        			Queue tempQ3 = new Queue((router1)+" to "+(router2),"OutputQ",""+(router1),linkSpeed);
-        			Queue tempQ4 = new Queue((router2)+" to "+(router1),"OutputQ",""+(router2),linkSpeed);
+        			Queue tempQ1 = new Queue((router1)+" to "+(router2),"InputQ",""+(router2),qCapacity);
+        			Queue tempQ2 = new Queue((router2)+" to "+(router1),"InputQ",""+(router1),qCapacity);
+        			Queue tempQ3 = new Queue((router1)+" to "+(router2),"OutputQ",""+(router1),qCapacity);
+        			Queue tempQ4 = new Queue((router2)+" to "+(router1),"OutputQ",""+(router2),qCapacity);
         			
         			
         			InputBuffer.put((router1)+" to "+(router2), tempQ1);

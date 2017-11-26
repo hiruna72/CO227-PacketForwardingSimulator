@@ -1,17 +1,18 @@
 package com.co227.project.packetForwadingSimulator.simulators;
 
-public class Lose extends NextEvent {
+public class Reach extends NextEvent {
+
 	private String currentLocation;
-	public Lose(String eventID, double timeForEvent, String packetName,String currentLocation) {
+	public Reach(String eventID, double timeForEvent, String packetName,String currentLocation) {
 		super(eventID, timeForEvent, packetName);
 		this.currentLocation = currentLocation;
 	}
 
 	@Override
 	public void excuteEvent(double leastEventTime) {
-		String tpn = Simulator.Links.get(this.currentLocation).getPacketOut();
+		Simulator.InputBuffer.get(currentLocation).removePacket();
 		Simulator.Packets.get(packetName).markAsLost();
-		System.out.println(packetName+" is lost on link "+this.currentLocation);
+		System.out.println(packetName+" reached destination");
 	}
 
 	@Override
