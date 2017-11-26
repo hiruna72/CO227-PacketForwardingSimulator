@@ -1,9 +1,11 @@
 # CO227-PacketForwardingSimulator
-Packet forwarding network simulator
+Packet forwarding network simulator 
+store and forward method is used  
 
 input file method
 
-[no of routers] [no of links]  
+[no of routers] [no of links]
+[router1ProcessingDelay] [router2ProcessingDelay]  // 9 processing delays   
 //then describe link one by one  
 [router1] [router2] [link distance] [propagation speed of the link]  
 
@@ -13,6 +15,7 @@ compile and run app.java file
 example input method used 
 
 9 14  
+2 1 3 4 5 6 7 1 0  
 0 1 10 10  
 0 7 20 10  
 1 2 30 15  
