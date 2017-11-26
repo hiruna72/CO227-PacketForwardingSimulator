@@ -1,7 +1,7 @@
 package com.co227.project.packetForwadingSimulator.simulators;
 
 /**
- * Hello world!
+ * please refer readme file
  *
  */
 public class App 
