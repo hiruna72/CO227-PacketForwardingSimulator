@@ -8,7 +8,7 @@ input file method
 [no of routers] [no of links]  
 [router1ProcessingDelay] [router2ProcessingDelay]  // 9 processing delays   
 //then describe link one by one  
-[router1] [router2] [link distance] [propagation speed of the link]  
+[router1] [router2] [link distance] [transmissionRateofLink]  
 
 to run  
 compile and run app.java file
