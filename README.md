@@ -6,7 +6,7 @@ store and forward method is used
 input file method
 
 [no of routers] [no of links]  
-[router1ProcessingDelay] [router2ProcessingDelay]  // 9 processing delays   
+[router1ProcessingDelay] [router2ProcessingDelay]  // processing delays   
 //then describe link one by one  
 [router1] [router2] [link distance] [transmissionRateofLink]  
 
