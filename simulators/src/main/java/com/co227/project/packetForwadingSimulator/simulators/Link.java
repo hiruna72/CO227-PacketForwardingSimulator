@@ -2,18 +2,19 @@ package com.co227.project.packetForwadingSimulator.simulators;
 
 
 public class Link {
+	public static double linkPropagationSpeed = 2; //2*10^8 m per second
 	private String linkID;
 	private double linkDistance;
-	private double linkPropagationSpeed;
+	private double transmissionRate;
 	private boolean linkIsClear;
 	private String packetOnLink;
 	private String currentLocationType;
-	public Link(String linkId,String currentLocationType, double linkDistance,double linkPropagationSpeed) {
+	public Link(String linkId,String currentLocationType, double linkDistance,double transmissionRate) {
 		this.currentLocationType = currentLocationType;
 		this.linkID = linkId;
 		this.linkIsClear=true;
 		this.linkDistance = linkDistance;
-		this.linkPropagationSpeed = linkPropagationSpeed;
+		this.transmissionRate = transmissionRate;
 		this.packetOnLink = null;
 	}
 	boolean linkIsClear(){
@@ -28,7 +29,10 @@ public class Link {
 		linkIsClear=!linkIsClear;
 	}
 	public double getPropagatingDelay() {
-		return this.linkDistance/this.linkPropagationSpeed;
+		return this.linkDistance/linkPropagationSpeed;
+	}
+	public double getTransmissionDelay(double psize) {
+		return psize/this.transmissionRate;
 	}
 
 }

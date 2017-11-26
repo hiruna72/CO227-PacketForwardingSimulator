@@ -15,7 +15,7 @@ public class gui227 extends JFrame {
     private Dimension FRAME_SIZE = new Dimension(600, 600);// dimension for main panel
     private Color backgroundColor = new Color(16, 16, 16); 
     private JFrame f2;
-  
+    private static JTextField jTextField0;
     private JTextField jTextField1;
     private JTextField jTextField2;
     private JTextField jTextField3;
@@ -23,10 +23,12 @@ public class gui227 extends JFrame {
     
     private JTextField jTextField5,jTextField6,jTextField7,jTextField8;
     private JTextField jTextField9,jTextField10,jTextField11,jTextField12;
+    private JTextField jTextField13,jTextField14,jTextField15,jTextField16;
     
     private int Routers = 10;
     private static ArrayList<ArrayList<String>>injectedPackets;
     //public static ArrayList<Packet> p = new ArrayList<Packet>();
+	private static int noPackets = 0;
     
     
 
@@ -85,6 +87,28 @@ public class gui227 extends JFrame {
         packetSize.setLocation(400, 100);
         packetSize.setFont(new Font("Tahoma",Font.PLAIN , 18));
         mainPanel.add(packetSize);
+        
+        JLabel noOfPackets = new JLabel("#Packets");
+        noOfPackets.setForeground(Color.WHITE);
+        noOfPackets.setSize(100, 40);
+        noOfPackets.setLocation(100, 500);
+        noOfPackets.setFont(new Font("Tahoma",Font.PLAIN , 18));
+        mainPanel.add(noOfPackets);
+        
+        //add text areas
+        jTextField0 = new JTextField();
+        jTextField0.setSize(100, 40);
+        jTextField0.setLocation(200, 500);
+        jTextField0.setText("0");
+        mainPanel.add(jTextField0);
+        
+        
+        
+        
+        
+        
+        
+        
         
         //add text areas
         jTextField1 = new JTextField();
@@ -150,10 +174,33 @@ public class gui227 extends JFrame {
         mainPanel.add(jTextField12);
         
         
+        
+        jTextField13 = new JTextField();
+        jTextField13.setSize(100, 40);
+        jTextField13.setLocation(100, 460);
+        mainPanel.add(jTextField13);
+        
+        jTextField14 = new JTextField();
+        jTextField14.setSize(100, 40);
+        jTextField14.setLocation(200, 460);
+        mainPanel.add(jTextField14);
+        
+        jTextField15 = new JTextField();
+        jTextField15.setSize(100, 40);
+        jTextField15.setLocation(300, 460);
+        mainPanel.add(jTextField15);
+        
+        jTextField16 = new JTextField();
+        jTextField16.setSize(100, 40);
+        jTextField16.setLocation(400, 460);
+        mainPanel.add(jTextField16);
+        
+        
+        
         // inject button
         injectBtn = new JButton("Inject");
         injectBtn.setSize(120, 40);
-        injectBtn.setLocation(240, 500);
+        injectBtn.setLocation(400, 500);
         injectBtn.setFocusable(false);
         injectBtn.setFont(new Font("Tahoma",Font.PLAIN , 16));	
         injectBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -178,6 +225,7 @@ public class gui227 extends JFrame {
     
     
     public void jactionPerformed(ActionEvent e) {
+    	noPackets = Integer.parseInt(jTextField0.getText());
         if( checkValidity( jTextField1.getText(),jTextField2.getText(),jTextField3.getText()) ){
             validPackets++;
             ArrayList<String> packetDetails = new ArrayList<String>();
@@ -205,6 +253,19 @@ public class gui227 extends JFrame {
             packetDetails.add(jTextField12.getText());
             injectedPackets.add(packetDetails);       
         }
+        
+        if( checkValidity( jTextField13.getText(),jTextField14.getText(),jTextField15.getText()) ){
+            validPackets++;
+            ArrayList<String> packetDetails = new ArrayList<String>();
+            packetDetails.add(jTextField13.getText());
+            packetDetails.add(jTextField14.getText());
+            packetDetails.add(jTextField15.getText());
+            packetDetails.add(jTextField16.getText());
+            injectedPackets.add(packetDetails);       
+        }
+        
+        
+        jTextField0.setText("");
         jTextField1.setText("");
         jTextField2.setText("");
         jTextField3.setText("");
@@ -217,7 +278,10 @@ public class gui227 extends JFrame {
         jTextField10.setText("");
         jTextField11.setText("");
         jTextField12.setText("");
-
+        jTextField13.setText("");
+        jTextField14.setText("");
+        jTextField15.setText("");
+        jTextField16.setText("");
     }
     
     public void exitactionPerformed(ActionEvent e) {
@@ -251,14 +315,17 @@ public class gui227 extends JFrame {
 	public static void addNewPackets() {
 		
 		int length = injectedPackets.size();
-		if(length>2){
-	//		System.out.println(length);
+		if(length==noPackets && noPackets>0){
+			System.out.println(length);
 			for(int i=0;i<length;i++){
 	//			System.out.println("adding Packets");
 				Packet packet = new Packet( injectedPackets.get(i).get(0),Integer.parseInt(injectedPackets.get(i).get(1)),Integer.parseInt(injectedPackets.get(i).get(2)),Double.parseDouble(injectedPackets.get(i).get(3)),"InputQ",injectedPackets.get(i).get(1)+" to "+injectedPackets.get(i).get(1));
-				if(Simulator.InputBuffer.get(injectedPackets.get(i).get(1)+" to "+injectedPackets.get(i).get(1)).addPacketVirtually(1F)){
+				if(Simulator.InputBuffer.get(injectedPackets.get(i).get(1)+" to "+injectedPackets.get(i).get(1)).addPacketVirtually(Double.parseDouble(injectedPackets.get(i).get(3)))){
 			     	Simulator.InputBuffer.get(injectedPackets.get(i).get(1)+" to "+injectedPackets.get(i).get(1)).addPacket(injectedPackets.get(i).get(0));
 			     	Simulator.Packets.put(injectedPackets.get(i).get(0), packet);
+				}
+				else{
+					System.out.println(injectedPackets.get(i).get(1)+" to "+injectedPackets.get(i).get(1)+" InputQ is full "+injectedPackets.get(i).get(0)+" is lost");
 				}
 				//injectedPackets.remove(i);
 			}

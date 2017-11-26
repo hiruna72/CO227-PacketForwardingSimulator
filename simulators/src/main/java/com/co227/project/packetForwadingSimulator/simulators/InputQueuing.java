@@ -1,8 +1,8 @@
 package com.co227.project.packetForwadingSimulator.simulators;
 
-public class TransmitFromLink extends NextEvent {
+public class InputQueuing extends NextEvent {
 	private String linkKey,inputQKey;
-	public TransmitFromLink(String eventID, double timeForEvent,String linkKey, String inputQKey, String packetName) {
+	public InputQueuing(String eventID, double timeForEvent,String linkKey, String inputQKey, String packetName) {
 		super(eventID, timeForEvent, packetName);
 		this.linkKey = linkKey;
 		this.inputQKey = inputQKey;
@@ -14,13 +14,13 @@ public class TransmitFromLink extends NextEvent {
 		String tpn = Simulator.Links.get(linkKey).getPacketOut();
 		Simulator.InputBuffer.get(inputQKey).addPacket(this.packetName);
 		Simulator.Packets.get(packetName).updateCurrentLocationType("InputQ");
-		System.out.println(this.packetName+" is transmitted from link "+linkKey);
+		System.out.println(this.packetName+" is stored in the InputQ "+linkKey);
 	}
 
 	@Override
 	public void halfExecuteEvent(double leastEventTime) {
 		this.timeForEvent-=leastEventTime;
-		System.out.println(this.packetName+" is transmitting");
+		System.out.println(this.packetName+" is queuing");
 	}
 
 }

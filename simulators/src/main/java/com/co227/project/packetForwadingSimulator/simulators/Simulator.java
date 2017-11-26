@@ -141,7 +141,7 @@ public class Simulator {
 			if(OutputBuffer.get(currentLocation).packetIsAtExit(packetName.toString())){
 				if(Links.get(currentLocation).linkIsClear()){
 					//System.out.println("time for transmission: "+Routers.get(currentLocation.split(" to ")[0]).getTransmittingDelay(Packets.get(packetName).getSize()));
-					NextEvent newEvent = new TransmitToLink("transmitToLink",Routers.get(currentLocation.split(" to ")[0]).getTransmittingDelay(Packets.get(packetName).getSize()),currentLocation,currentLocation,packetName);
+					NextEvent newEvent = new TransmitToLink("transmitToLink",Links.get(currentLocation).getTransmissionDelay(Packets.get(packetName).getSize()),currentLocation,currentLocation,packetName);
 					Packets.get(packetName).setNextEvent(newEvent);
 				}
 				else{
@@ -161,7 +161,7 @@ public class Simulator {
 			
 	//		System.out.println(Packets.get(packetName).getID()+" is on edge of link "+currentLocation);
 			if(checkInputQ(currentLocation,Packets.get(packetName).getSize())){
-				NextEvent newEvent = new TransmitFromLink("transmitFromLink",Routers.get(currentLocation.split(" to ")[1]).getTransmittingDelay(Packets.get(packetName).getSize()),currentLocation,currentLocation,packetName);
+				NextEvent newEvent = new InputQueuing("inputQueuing",0D,currentLocation,currentLocation,packetName);
 				Packets.get(packetName).setNextEvent(newEvent);
 			}
 			else{
@@ -187,6 +187,7 @@ public class Simulator {
 	}
 	private void setUpForwadingTable() {
 		boolean firstLine=true;
+		boolean secondLine=false;
 		String network="C.txt";
 		//String matFile = "C:/Hiruna/CO227/Project/src/"+network;
 		String matFile = "./src/main/java/"+network;
@@ -199,22 +200,31 @@ public class Simulator {
         			noLinks=Integer.valueOf(cmd[1]);
         			adjecencyMat = new int[noRouters][noRouters];
         			firstLine=false;
+        			secondLine=true;
         			for(int i=0;i<noRouters;i++){
-        				Queue tempQ1 = new Queue(i+" to "+i,"InputQ",""+i,10D);
+        				Queue tempQ1 = new Queue(i+" to "+i,"InputQ",""+i,20D);
         				InputBuffer.put(i+" to "+i,tempQ1);
         			}
+        		}
+        		else if(secondLine){
+        			for(int i=0;i<noRouters;i++){
+        				Router tempRouter = new Router(i,Integer.valueOf(cmd[i]));
+        				String tempKey = i+"";
+        				Routers.put(tempKey, tempRouter);
+        			}
+        			secondLine=false;
         		}
         		else{
         			
         			int router1=Integer.valueOf(cmd[0]);
         			int router2=Integer.valueOf(cmd[1]);
         			double linkDistance = Double.parseDouble(cmd[2]);
-        			double linkSpeed = Double.parseDouble(cmd[3]);
-        			double qCapacity = linkSpeed;
+        			double transmissionRate = Double.parseDouble(cmd[3]);
+        			double qCapacity = transmissionRate; //as for now
         			
-        			Link tempLink1 = new Link((router1)+" to "+(router2),"onLink",linkDistance,linkSpeed);
+        			Link tempLink1 = new Link((router1)+" to "+(router2),"onLink",linkDistance,transmissionRate);
         			Links.put((router1)+" to "+(router2), tempLink1);
-        			Link tempLink2 = new Link((router2)+" to "+(router1),"onLink",linkDistance,linkSpeed);
+        			Link tempLink2 = new Link((router2)+" to "+(router1),"onLink",linkDistance,transmissionRate);
         			Links.put((router2)+" to "+(router1), tempLink2);
         			
         			
@@ -246,12 +256,6 @@ public class Simulator {
 		int src=0;
 		forwardingTable= new int[noRouters][noRouters];
 		ForwadingTable table1= new ForwadingTable(adjecencyMat,src,forwardingTable);
-		
-		for(int i=0;i<noRouters;i++){
-			Router tempRouter = new Router(i,2D,4D);
-			String tempKey = i+"";
-			Routers.put(tempKey, tempRouter);
-		}
 	}
 	
 }
