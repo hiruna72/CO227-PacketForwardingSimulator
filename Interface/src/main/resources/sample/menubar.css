@@ -1,0 +1,15 @@
+.menu-bar {
+		-fx-background-color: white;
+}
+
+.menu .label {
+	-fx-text-fill: black;
+}
+
+.menu-item:focused {
+	-fx-background-color: yellow;
+}
+
+.menu-item .label {
+	-fx-text-fill: black;
+}
