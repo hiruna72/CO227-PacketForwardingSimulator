@@ -13,6 +13,7 @@ public class Reach extends NextEvent {
 		Simulator.InputBuffer.get(currentLocation).removePacket();
 		Simulator.Packets.get(packetName).markAsLost();
 		System.out.println(packetName+" reached destination");
+		Simulator.Packets.get(packetName).showVisitedLocations();
 	}
 
 	@Override

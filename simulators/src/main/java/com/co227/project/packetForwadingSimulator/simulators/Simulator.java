@@ -45,7 +45,7 @@ public class Simulator {
 //		    System.out.println(entry.getKey() + "/" + entry.getValue());
 			boolean livingPacket = entry2.getValue().getPacketState();
 			if(entry2.getValue().getNextEvent()==null && livingPacket){
-				//System.out.println("event is null");
+			//	System.out.println("event is null");
 				this.processPacketNextEvent(entry2.getKey());
 			}
 		}
@@ -60,7 +60,7 @@ public class Simulator {
 				double eventTime = entry2.getValue().getNextEvent().getTimeTaken();
 				if(eventTime < leastEventTime){
 					leastEventTime = eventTime;
-				//	System.out.println("leastEventTime "+leastEventTime);
+				//System.out.println("leastEventTime "+leastEventTime);
 				}
 			}
 			
@@ -107,7 +107,7 @@ public class Simulator {
 		if(currentLocationType.equals("InputQ")){
 			
 			
-		//	System.out.println(Packets.get(packetName).getID()+" is in inputQ "+currentLocation);
+			//System.out.println(Packets.get(packetName).getID()+" is in inputQ "+currentLocation);
 			int routerID = Integer.parseInt(currentLocation.split(" to ")[1]);
 			if(InputBuffer.get(currentLocation).packetIsAtExit(packetName.toString())){
 				int nextRouter=this.forwardingTable[routerID][Packets.get(packetName).getDest()];
@@ -116,9 +116,7 @@ public class Simulator {
 					Packets.get(packetName).setNextEvent(newEvent);
 					
 					
-				}
-				
-				
+				}				
 				else if(checkOutputQ(nextRouter,routerID,Packets.get(packetName).getSize())){
 					NextEvent newEvent = new ProcessSwitch("process&switch",Routers.get(routerID+"").getProcessingDelay(),currentLocation,routerID+" to "+nextRouter,packetName);
 					Packets.get(packetName).setNextEvent(newEvent);
@@ -130,8 +128,12 @@ public class Simulator {
 				
 			}
 			else{
-				NextEvent newEvent = new Wait("wait",Double.MAX_VALUE,packetName,currentLocation);
+				//instead of waiting until outputQ gets empty lose the packet
+//				NextEvent newEvent = new Wait("wait",Double.MAX_VALUE,packetName,currentLocation);
+//				Packets.get(packetName).setNextEvent(newEvent);
+				NextEvent newEvent = new Lose("lose",Double.MAX_VALUE,packetName,currentLocation);
 				Packets.get(packetName).setNextEvent(newEvent);
+				
 			}
 			
 		}

@@ -316,7 +316,7 @@ public class gui227 extends JFrame {
 		
 		int length = injectedPackets.size();
 		if(length==noPackets && noPackets>0){
-			System.out.println(length);
+		//	System.out.println(length);
 			for(int i=0;i<length;i++){
 	//			System.out.println("adding Packets");
 				Packet packet = new Packet( injectedPackets.get(i).get(0),Integer.parseInt(injectedPackets.get(i).get(1)),Integer.parseInt(injectedPackets.get(i).get(2)),Double.parseDouble(injectedPackets.get(i).get(3)),"InputQ",injectedPackets.get(i).get(1)+" to "+injectedPackets.get(i).get(1));

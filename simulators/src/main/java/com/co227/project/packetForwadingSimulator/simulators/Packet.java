@@ -6,6 +6,7 @@ public class Packet {
 	private int src,dest;
 	private double size;
 	private ArrayList<NextEvent>events;
+	private ArrayList<String>locationsVisited;
 	private String packetName;
 	private String currentLocation;
 	private String currentLocationType;
@@ -17,6 +18,8 @@ public class Packet {
 		this.packetName=packetName;
 		this.size=size;
 		this.events = new ArrayList<NextEvent>();
+		this.locationsVisited = new ArrayList<String>();
+		this.locationsVisited.add(this.src+"");
 		this.nextEvent=null;
 		this.livePacket = true;
 		this.currentLocationType = currentLocationType;
@@ -48,7 +51,12 @@ public class Packet {
 	}
 	public void addToEvents() {
 		this.events.add(nextEvent);
+		if(this.currentLocationType.equals("OutputQ"))
+			this.addToLocations();
 		this.nextEvent=null;
+	}
+	private void addToLocations() {
+		this.locationsVisited.add(this.currentLocation.split(" to ")[1]);		
 	}
 	public void updateCurrentLocation(String outputQKey) {
 		this.currentLocation = outputQKey;
@@ -61,6 +69,13 @@ public class Packet {
 	}
 	public boolean getPacketState() {
 		return this.livePacket;
+	}
+	public void showVisitedLocations() {
+		System.out.println(this.packetName+" packet's path:");
+		for(int i=0;i<this.locationsVisited.size();i++){
+			System.out.println("router: "+this.locationsVisited.get(i));
+		}
+		
 	}
 	
 	
