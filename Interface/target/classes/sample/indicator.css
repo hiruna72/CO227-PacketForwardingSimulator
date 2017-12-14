@@ -1,0 +1,24 @@
+.ringindicator {
+	-fx-ring-width: 22.0;
+	-fx-inner-radiu: 60.0;
+}
+
+.ringindicator-inner-circle {
+	-fx-opacity: 0.55;
+	-fx-stroke: circleindicator-color;
+	-fx-stroke-width: 8.0px;
+	-fx-fill: -fx-background;
+}
+
+.ringindicator-filler {
+	-fx-stroke: circleindicator-color;
+	-fx-fill: -fx-background;
+	-fx-stroke-line-cap: butt;
+}
+
+.ringindicator-outer-circle-secondary {
+	-fx-opacity: 0.1;
+	-fx-stroke: circleindicator-color;
+	-fx-stroke-width: 2.0px;
+	-fx-fill: -fx-background;
+}

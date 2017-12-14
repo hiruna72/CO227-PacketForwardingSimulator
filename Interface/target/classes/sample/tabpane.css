@@ -1,0 +1,15 @@
+.tab-pane .tab-header-area .tab-header-background {
+	-fx-opacity: 0.0;
+}
+
+.tab-pane{
+	-fx-tab-min-width:90.0px;
+	-fx-background-color: black;
+}
+
+.tab-pane .tab{
+	-fx-background-color: orange;
+	-fx-background-radius: 0.0 20.0 0.0 20.0;
+	-fx-focus-color: transparent;
+	-fx-faint-focus-color: transparent;
+}
