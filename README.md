@@ -32,6 +32,15 @@ the input used in the program
 6 8 65 13  
 7 8 45 45  
 
+
+the parameters are in following units
+
+processing delay  - microSeconds
+transmission rate - bitsPerSecond
+packet size       - bits
+link distance     - meters
+
+
 which describes the following graph (discard lengths of links)
 
 ![Alt text](/simulators/src/main/java/com/co227/project/packetForwadingSimulator/simulators/graph.PNG?raw=true "exampleGraph")
