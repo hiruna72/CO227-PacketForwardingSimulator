@@ -35,10 +35,10 @@ the input used in the program
 
 the parameters are in following units
 
-processing delay  - microSeconds
-transmission rate - bitsPerSecond
-packet size       - bits
-link distance     - meters
+processing delay  - microSeconds  
+transmission rate - bitsPerSecond  
+packet size       - bits  
+link distance     - meters  
 
 
 which describes the following graph (discard lengths of links)
