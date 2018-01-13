@@ -104,6 +104,7 @@ public class gui227 extends JFrame {
         jTextField1 = new JTextField();
         jTextField1.setSize(100, 40);
         jTextField1.setLocation(100, 160);
+        jTextField1.setBackground(Color.RED);;
         mainPanel.add(jTextField1);
         
         jTextField2 = new JTextField();
@@ -125,6 +126,7 @@ public class gui227 extends JFrame {
         jTextField5 = new JTextField();
         jTextField5.setSize(100, 40);
         jTextField5.setLocation(100, 260);
+        jTextField5.setBackground(Color.GREEN);
         mainPanel.add(jTextField5);
         
         jTextField6 = new JTextField();
@@ -146,6 +148,7 @@ public class gui227 extends JFrame {
         jTextField9 = new JTextField();
         jTextField9.setSize(100, 40);
         jTextField9.setLocation(100, 360);
+        jTextField9.setBackground(Color.YELLOW);
         mainPanel.add(jTextField9);
         
         jTextField10 = new JTextField();
@@ -160,7 +163,7 @@ public class gui227 extends JFrame {
         
         jTextField12 = new JTextField();
         jTextField12.setSize(100, 40);
-        jTextField12.setLocation(400, 360);
+        jTextField12.setLocation(400, 360);        
         mainPanel.add(jTextField12);
         
         

@@ -19,9 +19,11 @@ public class Simulator {
 	public static HashMap<String,Queue>InputBuffer;
 	public static HashMap<String,Queue>OutputBuffer;
 	public static ArrayList<ArrayList<String>> timeStamps;
+	public static ArrayList<String> simpleLinks;
 	public static boolean injectDone = true;
 	public static double timeElapsed=0;
 	Simulator(){
+		simpleLinks = new ArrayList<String>();
 		timeStamps = new ArrayList<ArrayList<String>>(); 
 		InputBuffer = new HashMap<String,Queue>();
 		OutputBuffer = new HashMap<String,Queue>();
@@ -84,7 +86,7 @@ public class Simulator {
 				
 			}
 			timeStamps.add(aTimeStamp);
-			System.out.println("######################################################### time: "+timeElapsed);
+			System.out.println("######################################################### time: "+timeElapsed+" ms");
 		}
 		
 		//check for new injected packets
@@ -261,7 +263,7 @@ public class Simulator {
         			Links.put((router1)+" to "+(router2), tempLink1);
         			Link tempLink2 = new Link((router2)+" to "+(router1),"onLink",linkDistance,transmissionRate);
         			Links.put((router2)+" to "+(router1), tempLink2);
-        			
+        			simpleLinks.add(router1+" to "+router2);
         			
         			Queue tempQ1 = new Queue((router1)+" to "+(router2),"InputQ",""+(router2),qCapacity);
         			Queue tempQ2 = new Queue((router2)+" to "+(router1),"InputQ",""+(router1),qCapacity);

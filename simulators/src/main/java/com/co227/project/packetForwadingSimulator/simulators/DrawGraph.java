@@ -55,20 +55,10 @@ public class DrawGraph implements ActionListener {
 		graph.setStrict(false);
 		graph.setAutoCreate( true );
 		
-		graph.addEdge("0 to 1", "0","1");
-	    graph.addEdge("7 to 0", "0", "7");
-	    graph.addEdge("1 to 2", "1", "2");
-	    graph.addEdge("1 to 7", "1", "7");
-	    graph.addEdge("2 to 3", "2", "3");
-	    graph.addEdge("2 to 8", "2", "8");
-	    graph.addEdge("2 to 5", "2", "5");
-	    graph.addEdge("3 to 4", "3", "4");
-	    graph.addEdge("3 to 5", "3", "5");
-	    graph.addEdge("4 to 5", "4", "5");
-	    graph.addEdge("5 to 6", "5", "6");
-	    graph.addEdge("6 to 7", "6", "7");
-	    graph.addEdge("6 to 8", "6", "8");
-	    graph.addEdge("7 to 8", "7", "8");
+		for(int i=0;i<Simulator.simpleLinks.size();i++){
+			String temp = Simulator.simpleLinks.get(i);
+			graph.addEdge(temp, temp.split(" to ")[0], temp.split(" to ")[1]);
+		}
 	    graph.addAttribute("ui.stylesheet", 
 	    		"graph { fill-color: black; }"
 	    		+ "node { fill-color: blue; text-mode: normal;text-color: white;size: 15px;text-size:15px;text-alignment:center; } "
@@ -85,7 +75,7 @@ public class DrawGraph implements ActionListener {
 
 
 	public void actionPerformed(ActionEvent e) {
-		String [] colors = {"red","green","yellow","blue"};
+		String [] colors = {"red","green","yellow","white"};
 		if(this.length<this.timeStamps.size()){
 			this.sman = new SpriteManager(graph);
 			for(int i=0;i<this.timeStamps.get(this.length).size();i++){
@@ -94,7 +84,7 @@ public class DrawGraph implements ActionListener {
 				 s.addAttribute("label", packetID);
 				 int no =Integer.parseInt(packetID.split("p")[1]);
 				 System.out.println(colors[no-1]);
-				 s.addAttribute("fill-color:red");
+				 graph.addAttribute("ui.stylesheet", "sprite#"+packetID+ "{ fill-color: "+colors[no-1]+";}");
 				 String locationType = this.timeStamps.get(this.length).get(i).split(" ")[1];
 				 if(locationType.equals("r")){
 					 System.out.println("on a node "+this.timeStamps.get(this.length).get(i).split(" ")[0]);

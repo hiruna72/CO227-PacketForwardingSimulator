@@ -2,7 +2,7 @@ package com.co227.project.packetForwadingSimulator.simulators;
 
 
 public class Link {
-	public static double linkPropagationSpeed = 2; //2*10^8 m per second
+	public static double linkPropagationSpeed = 2e+05; //2*10^8 m per second
 	private String linkID;
 	private double linkDistance;
 	private double transmissionRate;
@@ -32,7 +32,7 @@ public class Link {
 		return this.linkDistance/linkPropagationSpeed;
 	}
 	public double getTransmissionDelay(double psize) {
-		return psize/this.transmissionRate;
+		return (psize*1000)/this.transmissionRate;
 	}
 
 }

@@ -11,7 +11,7 @@ public class Router {
 		this.routerID = i +"";
 	}
 	public double getProcessingDelay() {
-		return this.processingTime;
+		return this.processingTime/1000;
 	}
 	public void changeProcessingDelay(double processingTime){
 		this.processingTime = processingTime;
