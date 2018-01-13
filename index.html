@@ -1,336 +1,434 @@
- <div></div><!doctype html>
-<html lang="en" class="no-js">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+     <div></div><!doctype html>
+    <html lang="en" class="no-js">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link href='http://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans:400,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans:400,700' rel='stylesheet' type='text/css'>
 
-	<link rel="stylesheet" href="docs/css/reset.css"> <!-- CSS reset -->
-	<link rel="stylesheet" href="docs/css/style.css"> <!-- Resource style -->
-	<script src="docs/js/modernizr.js"></script> <!-- Modernizr -->
-  	
-	<title>Packet Forwarding Simulator</title>
-</head>
-<body>
-	<header>
-		<h1>Packet Forwarding Simulator</h1>
-	</header>
-    <section class="cd-container">
-        
-        <div class="cd-timeline-block">
-           <br> <h1>Overview</h1><br>
-                <div class="cd-timeline-content">
-                    <p>A Network Simulator to move packets in a network and calculate the associated delays</p>
-                </div> <!-- cd-timeline-content -->
-            </div> 
-        <br>
-    </section>
-    
-    
-    <section class="cd-container">
-        <h1>Stages</h1><br>
-       <div class="cd-timeline-block">
-                <div class="cd-timeline-img-large">
-                        <img src="docs/img/30p.png" alt="Picture">
-                    </div> <!-- cd-timeline-img -->
-                <div class="cd-timeline-content">
-                    
-                    <h2>Stage 1</h2>
-                    <p>Moving a single packet at a time in the network</p>
-                    <a href="#0" class="cd-read-more">Completed</a>
-                </div> <!-- cd-timeline-content -->
-            </div> 
+        <link rel="stylesheet" href="docs/css/reset.css"> <!-- CSS reset -->
+        <link rel="stylesheet" href="docs/css/style.css"> <!-- Resource style -->
+        <script src="docs/js/modernizr.js"></script> <!-- Modernizr -->
+
+        <title>Packet Forwarding Simulator</title>
+    </head>
+    <body>
+        <header>
+            <h1>Packet Forwarding Simulator</h1>
+        </header>
+        <section class="cd-container">
+
             <div class="cd-timeline-block">
-                    <div class="cd-timeline-img-large">
-                        <img src="docs/img/90p.png" alt="Picture">
-                    </div> <!-- cd-timeline-img -->
-
+               <br> <h1>Overview</h1><br>
                     <div class="cd-timeline-content">
-                        <h2>Stage 2</h2>
-                        <p>Forwarding multiple packets at a time (packet queing at nodes should be considered) </p>
-                        <a href="#0" class="cd-read-more">Working On</a>
+                        <p>A Network Simulator to move packets in a network and calculate the associated delays</p>
                     </div> <!-- cd-timeline-content -->
                 </div> 
-
+            <br>
         </section>
-	<section id="cd-timeline" class="cd-container">
-           
-            <h1>Project Log</h1><br>
-        <div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Picture">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Meeting the Product Owner</h2><br>
-				<p>We had a meeting with the product owner and asked for a description about his requirement. </p>
-				<span class="cd-date">Nov 1</span>
-			</div> <!-- cd-timeline-content -->
-		</div> 
-        
-        <div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Picture">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Team Meeting</h2><br>
-				<p>We had a discussion and started to work on the project.</p>
-				<span class="cd-date">Nov 2</span>
-			</div> <!-- cd-timeline-content -->
-		</div> 
-        
-        <div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Picture">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Searching for Similar Projects and Software</h2><br>
-				<p>To familiarize ourselves with the idea we had a look at past projects similar to ours.We also tested some network simulator software. </p>
-                <a href="http://imedita.com/blog/top-10-list-of-network-simulation-tools/"  target="_blank" >Network Simulators</a>
-				<span class="cd-date">Nov 3</span>
-			</div> <!-- cd-timeline-content -->
-		</div> 
-        
-        
-		<div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Picture">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Project Initializing</h2><br>
-				<a href="https://github.com/hiruna72/CO227-PacketForwardingSimulator"  target="_blank" >Github Repository</a>
-				<span class="cd-date">Nov 4</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
-
-        <div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Movie">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>User Input and Expected Output</h2>
-				<p>A discussion about the user input (network topology, dealys, parameters, packet injection) and the expected output (packet path, associated delays) with the product owner </p>
-				<span class="cd-date">Nov 5</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
-
-        
-		<div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Movie">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Designing Flow Chart</h2>
-				<p>The initial designing of the solution</p>
-				<a href="docs/img/f1.PNG" class="cd-read-more">Flow Chart</a>
-				<span class="cd-date">Nov 6</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
-
-        <div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Picture">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Use of APIs</h2><br>
-				<p>For the basic implementation there was no need of any API.To enhance user experience we planned to display the router network.Hence we agreed to use the  </p>
-                <a href="http://graphstream-project.org/"  target="_blank" >GraphStream Library</a>
-				<span class="cd-date">Nov 7</span>
-			</div> <!-- cd-timeline-content -->
-		</div> 
-        
-        <div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Movie">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Router Switch Fabric</h2>
-				<p>Router is the main component in the network.Its switch fabric is of main concern.We adopted the following switch fabric pattern in our implementation</p>
-				<a href="docs/img/switch.jpg" class="cd-read-more">Switch Fabric</a>
-				<span class="cd-date">Nov 8</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
-
-        
-		<div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Picture">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Implementing The Idea</h2>
-				<p>We agreed to use Java Maven Platform.We studied its facilities that we can we can use for testing. </p>
-				<a href="https://maven.apache.org/what-is-maven.html"  target="_blank" >Maven Platform</a>
-				<span class="cd-date">Nov 8</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
-
-        <div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Movie">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Change In Class Diagram</h2>
-				<p>Initializing Forwarding Tables, Routers, Links as public data structures instead of variables inside objects. Also used the directed links concept to function the full duplexity.</p>
-				<span class="cd-date">Nov 10</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
-        
-        <div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Location">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Coding the approach</h2>
-				<p>With necessary adjustments coding of the idea was done. </p>
-				<span class="cd-date">Nov 12</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
-        
-        <div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Location">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Testing the Code</h2>
-				<p>Testing of the code was done without JUnit facility. </p>
-				<span class="cd-date">Nov 15</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
-        
-        <div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Location">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Attaching The GUI</h2>
-				<p>To make testing easy and the output understandable GUI was developed parallely. </p>
-				<span class="cd-date">Nov 17</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
-        
-		<div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Location">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Change In Solution</h2>
-				<p>As shown in above flow chart the time based approach was not an ideal simulation.In the  next meeting we had with the product owner,he insisted on ideal simulation and asked us to go for an event based simulation. </p>
-				<span class="cd-date">Nov 21</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
-
-        
-        
-        <div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Movie">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Designing Flow Chart-2</h2>
-				<p>Event Based simulation gave us room to access almost all the associated parameters(link distance,transmission rate,packet size etc) of the network and change them easily.</p>
-				<a href="docs/img/f2.PNG" class="cd-read-more">Flow Chart-2</a>
-				<span class="cd-date">Nov 22</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
-
-        
-		<div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Location">
-			</div> <!-- cd-timeline-img -->
-
-			<div class="cd-timeline-content">
-				<h2>Class Diagram</h2>
-				<p>Event based simulation's class diagram.</p>
-				<a href="docs/img/clasdiag.jpg" class="cd-read-more">Class Diagram</a>
-				<span class="cd-date">Nov 24</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
 
 
-        <div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Location">
-			</div> <!-- cd-timeline-img -->
+        <section class="cd-container">
+            <h1>Stages</h1><br>
+           <div class="cd-timeline-block">
+                    <div class="cd-timeline-img-large">
+                            <img src="docs/img/30p.png" alt="Picture">
+                        </div> <!-- cd-timeline-img -->
+                    <div class="cd-timeline-content">
 
-			<div class="cd-timeline-content">
-				<h2>Coding the Idea</h2>
-				<p>Coding of the Event based simulation</p>
-				<a href="https://github.com/hiruna72/CO227-PacketForwardingSimulator/tree/master/simulators/src/main/java/com/co227/project/packetForwadingSimulator/simulators"  target="_blank" >Source Code</a>
-				<span class="cd-date">Nov 25</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
+                        <h2>Stage 1</h2>
+                        <p>Moving a single packet at a time in the network</p>
+                        <a href="#0" class="cd-read-more">Completed</a>
+                    </div> <!-- cd-timeline-content -->
+                </div> 
+                <div class="cd-timeline-block">
+                        <div class="cd-timeline-img-large">
+                            <img src="docs/img/90p.png" alt="Picture">
+                        </div> <!-- cd-timeline-img -->
 
-        
-		<div class="cd-timeline-block">
-			<div class="cd-timeline-img cd-location">
-				<img src="docs/img/cd-icon-location.svg" alt="Movie">
-			</div> <!-- cd-timeline-img -->
+                        <div class="cd-timeline-content">
+                            <h2>Stage 2</h2>
+                            <p>Forwarding multiple packets at a time (packet queing at nodes should be considered) </p>
+                            <a href="#0" class="cd-read-more">Working On</a>
+                        </div> <!-- cd-timeline-content -->
+                    </div> 
 
-			<div class="cd-timeline-content">
-				<h2>Setting GUI</h2>
-				<p>Improved GUI is attached</p>
-				<span class="cd-date">Nov 30</span>
-			</div> <!-- cd-timeline-content -->
-		</div> <!-- cd-timeline-block -->
-	</section> <!-- cd-timeline -->
-    <section class="cd-container">
-        <h1>Team</h1><br>
-       <div class="cd-timeline-block">
-                <div class="cd-timeline-img-large">
-                        <img src="docs/img/hiruna.png" alt="Picture">
-                    </div> <!-- cd-timeline-img -->
+            </section>
+        <section id="cd-timeline" class="cd-container">
+
+                <h1>Project Log</h1><br>
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Picture">
+                </div> <!-- cd-timeline-img -->
+
                 <div class="cd-timeline-content">
-                    
-                    <h2>Hiruna Samarakoon</h2>
-                    <p>Working on the development of the simulation</p>
-                    <a href="#0" class="cd-read-more">Completed</a>
-                    <span class="cd-date">E14302</span>
+                    <h2>Meeting the Product Owner</h2><br>
+                    <p>We had a meeting with the product owner and asked for a description about his requirement. </p>
+                    <span class="cd-date">Nov 1</span>
                 </div> <!-- cd-timeline-content -->
             </div> 
+
             <div class="cd-timeline-block">
-                    <div class="cd-timeline-img-large">
-                        <img src="docs/img/anjana.png" alt="Picture">
-                    </div> <!-- cd-timeline-img -->
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Picture">
+                </div> <!-- cd-timeline-img -->
 
+                <div class="cd-timeline-content">
+                    <h2>Team Meeting</h2><br>
+                    <p>We had a discussion and started to work on the project.</p>
+                    <span class="cd-date">Nov 2</span>
+                </div> <!-- cd-timeline-content -->
+            </div> 
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Picture">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Searching for Similar Projects and Software</h2><br>
+                    <p>To familiarize ourselves with the idea we had a look at past projects similar to ours.We also tested some network simulator software. </p>
+                    <a href="http://imedita.com/blog/top-10-list-of-network-simulation-tools/"  target="_blank" >Network Simulators</a>
+                    <span class="cd-date">Nov 3</span>
+                </div> <!-- cd-timeline-content -->
+            </div> 
+
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Picture">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Project Initializing</h2><br>
+                    <a href="https://github.com/hiruna72/CO227-PacketForwardingSimulator"  target="_blank" >Github Repository</a>
+                    <span class="cd-date">Nov 4</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Movie">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>User Input and Expected Output</h2>
+                    <p>A discussion about the user input (network topology, dealys, parameters, packet injection) and the expected output (packet path, associated delays) with the product owner </p>
+                    <span class="cd-date">Nov 5</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Movie">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Designing Flow Chart</h2>
+                    <p>The initial designing of the solution</p>
+                    <a href="docs/img/f1.PNG" class="cd-read-more">Flow Chart</a>
+                    <span class="cd-date">Nov 6</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Picture">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Use of APIs</h2><br>
+                    <p>For the basic implementation there was no need of any API.To enhance user experience we planned to display the router network.Hence we agreed to use the  </p>
+                    <a href="http://graphstream-project.org/"  target="_blank" >GraphStream Library</a>
+                    <span class="cd-date">Nov 7</span>
+                </div> <!-- cd-timeline-content -->
+            </div> 
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Movie">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Router Switch Fabric</h2>
+                    <p>Router is the main component in the network.Its switch fabric is of main concern.We adopted the following switch fabric pattern in our implementation</p>
+                    <a href="docs/img/switch.jpg" class="cd-read-more">Switch Fabric</a>
+                    <span class="cd-date">Nov 8</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Picture">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Implementing The Idea</h2>
+                    <p>We agreed to use Java Maven Platform.We studied its facilities that we can we can use for testing. </p>
+                    <a href="https://maven.apache.org/what-is-maven.html"  target="_blank" >Maven Platform</a>
+                    <span class="cd-date">Nov 8</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Movie">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Change In Class Diagram</h2>
+                    <p>Initializing Forwarding Tables, Routers, Links as public data structures instead of variables inside objects. Also used the directed links concept to function the full duplexity.</p>
+                    <span class="cd-date">Nov 10</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Location">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Coding the approach</h2>
+                    <p>With necessary adjustments coding of the idea was done. </p>
+                    <span class="cd-date">Nov 12</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Location">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Testing the Code</h2>
+                    <p>Testing of the code was done without JUnit facility. </p>
+                    <span class="cd-date">Nov 15</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Location">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Attaching The GUI</h2>
+                    <p>To make testing easy and the output understandable GUI was developed parallely. </p>
+                    <span class="cd-date">Nov 17</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Location">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Change In Solution</h2>
+                    <p>As shown in above flow chart the time based approach was not an ideal simulation.In the  next meeting we had with the product owner,he insisted on ideal simulation and asked us to go for an event based simulation. </p>
+                    <span class="cd-date">Nov 21</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Movie">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Designing Flow Chart-2</h2>
+                    <p>Event Based simulation gave us room to access almost all the associated parameters(link distance,transmission rate,packet size etc) of the network and change them easily.</p>
+                    <a href="docs/img/f2.PNG" class="cd-read-more">Flow Chart-2</a>
+                    <span class="cd-date">Nov 22</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Location">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Class Diagram</h2>
+                    <p>Event based simulation's class diagram.</p>
+                    <a href="docs/img/clasdiag.jpg" class="cd-read-more">Class Diagram</a>
+                    <span class="cd-date">Nov 24</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Location">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Coding the Idea</h2>
+                    <p>Coding of the Event based simulation</p>
+                    <a href="https://github.com/hiruna72/CO227-PacketForwardingSimulator/tree/master/simulators/src/main/java/com/co227/project/packetForwadingSimulator/simulators"  target="_blank" >Source Code</a>
+                    <span class="cd-date">Nov 25</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Movie">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Setting GUI</h2>
+                    <p>Improved GUI is attached</p>
+                    <span class="cd-date">Nov 30</span>
+                </div> <!-- cd-timeline-content -->
+            </div> 
+
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Movie">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Preparation for Mid Evaluation</h2>
+                    <p>Power point slides covering all the required aspects were prepared. </p>
+                    <a href="https://drive.google.com/open?id=18A52BVdKyjXOEt9QZMzUSBs-Q6p0H22Q-gl7PPbNTlc"  target="_blank" >Mid Presentaion</a>
+                    <span class="cd-date">Dec 5</span>
+                </div> <!-- cd-timeline-content -->
+            </div> 
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Movie">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Presentation Of the Work</h2>
+                    <p>The project progress was presented along with the demonstration. The feedback was good and work was appreciated </p>
+                    <span class="cd-date">Dec 6</span>
+                </div> <!-- cd-timeline-content -->
+            </div> 
+
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Movie">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Meeting with the Product Owner</h2>
+                    <p>Product owner was made aware of the work done so far. The future modifications as we listed out were discussed with the product owner.There, some of the modifications were dropped and some were added. Visualizing the graph for the purpose of making the presentation easier was set as a goal to acomplish. </p>
+                    <span class="cd-date">Dec 6</span>
+                </div> <!-- cd-timeline-content -->
+            </div> 
+
+
+
+
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Movie">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>The complexity of visualization</h2>
+                    <p>When the graph gets bigger or when the number of simultaneous packets moving gets bigger the graph becomes complex and there is no point of visualizing. Also graph visualizing libraries are not supporting javaFx   (<a href="http://graphstream-project.org"  target="_blank" > graphstream </a>library has just started developing the library to be compatible with javaFx) </p>
+                    <span class="cd-date">Dec 7</span>
+                </div> <!-- cd-timeline-content -->
+            </div> 
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Movie">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Software Release Version 1.0</h2>
+                    <p>All are welcome to download and use the "Simulator" and we value your feedbacks</p> 
+                    <a href="/docs/Simulator.zip" download="Simulator">
+                          <img border="0" src="docs/img/Simulator.PNG" alt="Simulator" width="50" height="50">
+                        </a>
+
+                    <a href="https://drive.google.com/open?id=1dlmWG12tht2DUZto8gBY3Tr55Ndbceoi"  target="_blank" > Download </a>
+
+                    <span class="cd-date">Dec 10</span>
+                </div> <!-- cd-timeline-content -->
+            </div> 
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Movie">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Further Development of Software</h2>
+                    <p>The facility to inject packets via a file was included. Some java threads were not working properly when resets. This was fixed too. The background was changed to plain color to enhance user experience. </p>
+                    <span class="cd-date">Dec 27</span>
+                </div> <!-- cd-timeline-content -->
+            </div> 
+             <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-location">
+                    <img src="docs/img/cd-icon-location.svg" alt="Movie">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2>Further Testing</h2>
+                    <p>The famouse <a href="https://en.wikipedia.org/wiki/National_Science_Foundation_Network"  target="_blank" > NSFNET </a> was used as the model topology to carry out the testing. Testing a simulation of a real situation was interesting. <a href="https://github.com/hiruna72/CO227-PacketForwardingSimulator/tree/master/docs/nsf"  target="_blank" > Results </a> </p>
+                    <span class="cd-date">Jan 3</span>
+                </div> <!-- cd-timeline-content -->
+            </div> 
+
+            <!-- cd-timeline-block -->
+        </section> <!-- cd-timeline -->
+        <section class="cd-container">
+            <h1>Team</h1><br>
+           <div class="cd-timeline-block">
+                    <div class="cd-timeline-img-large">
+                            <img src="docs/img/hiruna.png" alt="Picture">
+                        </div> <!-- cd-timeline-img -->
                     <div class="cd-timeline-content">
-                        <h2>Anjana Senanayake</h2>
-                        <p>Working on the UX/UI of the simulator </p>
-                        <a href="#0" class="cd-read-more">Working On</a>
-                        <span class="cd-date">E14317</span>
+
+                        <h2>Hiruna Samarakoon</h2>
+                        <p>Working on the development of the simulation</p>
+                        <a href="#0" class="cd-read-more">Completed</a>
+                        <span class="cd-date">E14302</span>
                     </div> <!-- cd-timeline-content -->
                 </div> 
-        <div class="cd-timeline-block">
-                    <div class="cd-timeline-img-large">
-                        <img src="docs/img/dhanushki.png" alt="Picture">
-                    </div> <!-- cd-timeline-img -->
+                <div class="cd-timeline-block">
+                        <div class="cd-timeline-img-large">
+                            <img src="docs/img/anjana.png" alt="Picture">
+                        </div> <!-- cd-timeline-img -->
 
-                    <div class="cd-timeline-content">
-                        <h2>Dhanushki Mapitigama</h2>
-                        <p>Working on testing the simulator </p>
-                        <a href="#0" class="cd-read-more">Working On</a>
-                        <span class="cd-date">E14240</span>
-                    </div> <!-- cd-timeline-content -->
-                </div> 
+                        <div class="cd-timeline-content">
+                            <h2>Anjana Senanayake</h2>
+                            <p>Working on the UX/UI of the simulator </p>
+                            <a href="#0" class="cd-read-more">Working On</a>
+                            <span class="cd-date">E14317</span>
+                        </div> <!-- cd-timeline-content -->
+                    </div> 
+            <div class="cd-timeline-block">
+                        <div class="cd-timeline-img-large">
+                            <img src="docs/img/dhanushki.png" alt="Picture">
+                        </div> <!-- cd-timeline-img -->
 
-        </section>
-    
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="docs/js/main.js"></script> <!-- Resource jQuery -->
-</body>
-</html>
+                        <div class="cd-timeline-content">
+                            <h2>Dhanushki Mapitigama</h2>
+                            <p>Working on testing the simulator </p>
+                            <a href="#0" class="cd-read-more">Working On</a>
+                            <span class="cd-date">E14240</span>
+                        </div> <!-- cd-timeline-content -->
+                    </div> 
+
+            </section>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="docs/js/main.js"></script> <!-- Resource jQuery -->
+    </body>
+    </html>
