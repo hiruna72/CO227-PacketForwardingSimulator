@@ -13,6 +13,17 @@ input file method
 to run  
 compile and run app.java file
 
+
+the parameters are in following units
+
+processing delay   - microSeconds  	    10-1000    	
+transmission rate  - kiloBytesPerSecond	1-7  
+packet size 	     - kiloBytes		      1-5  	  
+link distance 	   - meters		          several meters to thousonds of kilometers  
+transmiiting speed - kmPerSecond		    2e+05   
+
+
+
 the input used in the program  
 
 9 14  
@@ -31,16 +42,6 @@ the input used in the program
 6 7 75 15  
 6 8 65 13  
 7 8 45 45  
-
-
-the parameters are in following units
-
-processing delay   - microSeconds	      10-1000  	
-transmission rate  - kiloBytesPerSecond	1-7  
-packet size 	     - kiloBytes		      1-5  	  
-link distance 	   - meters		          several meters to thousonds of kilometers  
-transmiiting speed - kmPerSecond		    2e+05   
-
 
 which describes the following graph (discard lengths of links)
 
