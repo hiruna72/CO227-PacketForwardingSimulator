@@ -9,8 +9,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class gui227 extends JFrame {
+	private DrawGraph graph;
 	private int validPackets=0;
-    private JButton injectBtn,exit,minimize;
+    private JButton injectBtn,exit,minimize,graphBtn,runBtn;
     private JPanel mainPanel;
     private Dimension FRAME_SIZE = new Dimension(600, 600);// dimension for main panel
     private Color backgroundColor = new Color(16, 16, 16); 
@@ -34,18 +35,15 @@ public class gui227 extends JFrame {
 
     public gui227() {
         // frame creating
-        super();
+       // super();
         f2 = new JFrame("Packet Simulator");
         injectedPackets = new ArrayList<ArrayList<String>>();
-        
-        
         
         setSize(FRAME_SIZE);
         
         
         // main panel is the parent that contains all the elements in the gui 
         mainPanel = new JPanel();
-        mainPanel.setLayout(null);
         mainPanel.setBackground(backgroundColor);
         mainPanel.setLayout(null);
         mainPanel.setSize(FRAME_SIZE);
@@ -91,24 +89,16 @@ public class gui227 extends JFrame {
         JLabel noOfPackets = new JLabel("#Packets");
         noOfPackets.setForeground(Color.WHITE);
         noOfPackets.setSize(100, 40);
-        noOfPackets.setLocation(100, 500);
+        noOfPackets.setLocation(0, 500);
         noOfPackets.setFont(new Font("Tahoma",Font.PLAIN , 18));
         mainPanel.add(noOfPackets);
         
         //add text areas
         jTextField0 = new JTextField();
         jTextField0.setSize(100, 40);
-        jTextField0.setLocation(200, 500);
+        jTextField0.setLocation(100, 500);
         jTextField0.setText("0");
         mainPanel.add(jTextField0);
-        
-        
-        
-        
-        
-        
-        
-        
         
         //add text areas
         jTextField1 = new JTextField();
@@ -199,8 +189,8 @@ public class gui227 extends JFrame {
         
         // inject button
         injectBtn = new JButton("Inject");
-        injectBtn.setSize(120, 40);
-        injectBtn.setLocation(400, 500);
+        injectBtn.setSize(100, 40);
+        injectBtn.setLocation(200, 500);
         injectBtn.setFocusable(false);
         injectBtn.setFont(new Font("Tahoma",Font.PLAIN , 16));	
         injectBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -211,6 +201,31 @@ public class gui227 extends JFrame {
         mainPanel.add(injectBtn);
         
         
+        // graph button
+        graphBtn = new JButton("Graph");
+        graphBtn.setSize(100, 40);
+        graphBtn.setLocation(300, 500);
+        graphBtn.setFocusable(false);
+        graphBtn.setFont(new Font("Tahoma",Font.PLAIN , 16));	
+        graphBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gactionPerformed(evt);
+            }
+        });
+        mainPanel.add(graphBtn);
+        
+     // runBtn button
+        runBtn = new JButton("Run");
+        runBtn.setSize(100, 40);
+        runBtn.setLocation(400, 500);
+        runBtn.setFocusable(false);
+        runBtn.setFont(new Font("Tahoma",Font.PLAIN , 16));	
+        runBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ractionPerformed(evt);
+            }
+        });
+        mainPanel.add(runBtn);
         
       
         
@@ -223,7 +238,12 @@ public class gui227 extends JFrame {
      
     }
     
-    
+    public void ractionPerformed(ActionEvent e) {
+		this.graph.startTimer();
+    }
+    public void gactionPerformed(ActionEvent e) {
+			this.graph = new DrawGraph(Simulator.timeStamps);
+    }
     public void jactionPerformed(ActionEvent e) {
     	noPackets = Integer.parseInt(jTextField0.getText());
         if( checkValidity( jTextField1.getText(),jTextField2.getText(),jTextField3.getText()) ){

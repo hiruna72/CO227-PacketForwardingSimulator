@@ -18,9 +18,11 @@ public class Simulator {
 	public static HashMap<String,Packet>Packets;
 	public static HashMap<String,Queue>InputBuffer;
 	public static HashMap<String,Queue>OutputBuffer;
+	public static ArrayList<ArrayList<String>> timeStamps;
 	public static boolean injectDone = true;
 	public static double timeElapsed=0;
 	Simulator(){
+		timeStamps = new ArrayList<ArrayList<String>>(); 
 		InputBuffer = new HashMap<String,Queue>();
 		OutputBuffer = new HashMap<String,Queue>();
 		Links = new HashMap<String,Link>();
@@ -32,13 +34,14 @@ public class Simulator {
 		this.start();
 	}
 	private void start() {
+		
 		while(true){
-			this.iteratePackets();
+			this.iteratePackets(timeStamps);
 		}
 		
 	}
-	private void iteratePackets() {
-		
+	private void iteratePackets(ArrayList<ArrayList<String>> timeStamps) {
+		ArrayList<String> aTimeStamp = new ArrayList<String>();
 		//set new event
 		for (HashMap.Entry<String, Packet> entry2 : Packets.entrySet())
 		{
@@ -68,21 +71,51 @@ public class Simulator {
 		//excute the events
 		if(leastEventTime<Double.MAX_VALUE){
 			timeElapsed+=leastEventTime;
+			
 		//	System.out.println("################################");
 			for (HashMap.Entry<String, Packet> entry2 : Packets.entrySet())
 			{
 				boolean livingPacket = entry2.getValue().getPacketState();
 				if(livingPacket){
 					this.executeNextEvent(entry2.getKey(),leastEventTime);
+					addToTimeSlot(entry2.getValue(),aTimeStamp);
+					System.out.println(entry2.getValue().getID()+" is on "+entry2.getValue().getCurrentLocation()+"  "+entry2.getValue().getCurrentLocationType());
 				}
 				
 			}
+			timeStamps.add(aTimeStamp);
 			System.out.println("######################################################### time: "+timeElapsed);
 		}
+		
 		//check for new injected packets
 		gui227.addNewPackets();
 	}
 	
+	private void addToTimeSlot(Packet packet, ArrayList<String> aTimeStamp) {
+		String currentLocationType = packet.getCurrentLocationType();
+		String currentLocation = packet.getCurrentLocation();
+		if(currentLocationType.equals("OutputQ")){
+			String graphLoaction = packet.getID()+" r "+currentLocation.split(" to ")[0];
+			aTimeStamp.add(graphLoaction);
+		}
+		else if(currentLocationType.equals("InputQ")){
+			String graphLoaction = packet.getID()+" r "+currentLocation.split(" to ")[1];
+			aTimeStamp.add(graphLoaction);
+		}
+		else if(currentLocationType.equals("transmittedToLink")){
+			String graphLoaction = packet.getID()+" l "+currentLocation;
+			aTimeStamp.add(graphLoaction);
+		}
+		else if(currentLocationType.equals("onLinkEdge")){
+			String graphLoaction = packet.getID()+" l "+currentLocation;
+			aTimeStamp.add(graphLoaction);
+		}
+		else{
+			System.out.println("hello what is the unknown location type");
+		}
+		
+		
+	}
 	private void executeNextEvent(String key, double leastEventTime) {
 		
 		String eventID = Packets.get(key).getNextEvent().getEventID();
