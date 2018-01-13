@@ -73,9 +73,8 @@ public class DrawGraph implements ActionListener {
 	    		"graph { fill-color: black; }"
 	    		+ "node { fill-color: blue; text-mode: normal;text-color: white;size: 15px;text-size:15px;text-alignment:center; } "
 	    		+ "edge { fill-color: yellow; }"
-	    		+ "sprite { fill-color: red;text-mode: normal; text-color: white;size: 10px;text-size:10px;text-alignment:above; }");
+	    		+ "sprite { fill-color: yellow;text-mode: normal; text-color: white;size: 10px;text-size:10px;text-alignment:above; }");
 	    
-
         graph.addAttribute("ui.quality");
         graph.addAttribute("ui.antialias");
 		for(Node n:graph) {
@@ -86,13 +85,16 @@ public class DrawGraph implements ActionListener {
 
 
 	public void actionPerformed(ActionEvent e) {
-		
+		String [] colors = {"red","green","yellow","blue"};
 		if(this.length<this.timeStamps.size()){
 			this.sman = new SpriteManager(graph);
 			for(int i=0;i<this.timeStamps.get(this.length).size();i++){
 				 String packetID =  this.timeStamps.get(this.length).get(i).split(" ")[0];
 				 Sprite s = sman.addSprite(packetID); 	
 				 s.addAttribute("label", packetID);
+				 int no =Integer.parseInt(packetID.split("p")[1]);
+				 System.out.println(colors[no-1]);
+				 s.addAttribute("fill-color:red");
 				 String locationType = this.timeStamps.get(this.length).get(i).split(" ")[1];
 				 if(locationType.equals("r")){
 					 System.out.println("on a node "+this.timeStamps.get(this.length).get(i).split(" ")[0]);
