@@ -11,7 +11,8 @@ input file method
 [router1] [router2] [link distance] [transmissionRateofLink]  
 
 to run  
-compile and run app.java file
+compile and run app.java file in
+[CO227-PacketForwardingSimulator/simulators/src/main/java/com/co227/project/packetForwadingSimulator/simulators/]
 
 
 the parameters are in following units
