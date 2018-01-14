@@ -139,6 +139,8 @@ public class Simulator {
 		String currentLocationType = Packets.get(packetName).getCurrentLocationType();
 		String currentLocation = Packets.get(packetName).getCurrentLocation();
 		
+		System.out.println("@@  "+packetName+"  "+currentLocation+"  "+currentLocationType);
+		
 		if(currentLocationType.equals("InputQ")){
 			
 			
@@ -157,26 +159,40 @@ public class Simulator {
 					Packets.get(packetName).setNextEvent(newEvent);
 				}
 				else{
-					NextEvent newEvent = new Wait("wait",Double.MAX_VALUE,packetName,currentLocation);
-					Packets.get(packetName).setNextEvent(newEvent);
+					//FIFO priority remove
+					//now the packet has not enough space
+					//hence check outputQ's packets(from the first packet) whether they are less prior to the packet 
+					//if so the packet is removed
+					//this is done until packet gets enough space
+					//even if removing suitable packets does not create enough space all the packets(packet and the packets removed) are lost
+					if(tryToPushPacket(nextRouter,routerID,Packets.get(packetName).getPriorityValue(),Packets.get(packetName).getSize())){
+						NextEvent newEvent = new ProcessSwitch("process&switch",Routers.get(routerID+"").getProcessingDelay(),currentLocation,routerID+" to "+nextRouter,packetName);
+						Packets.get(packetName).setNextEvent(newEvent);
+					}
+					else{
+						//instead of waiting until outputQ gets empty lose the packet
+	//					NextEvent newEvent = new Wait("wait",Double.MAX_VALUE,packetName,currentLocation);
+	//					Packets.get(packetName).setNextEvent(newEvent);
+						NextEvent newEvent = new Lose("lose",Double.MAX_VALUE,packetName,currentLocation,currentLocationType);
+						Packets.get(packetName).setNextEvent(newEvent);
+					}
 				}
 				
 			}
 			else{
-				//instead of waiting until outputQ gets empty lose the packet
-//				NextEvent newEvent = new Wait("wait",Double.MAX_VALUE,packetName,currentLocation);
-//				Packets.get(packetName).setNextEvent(newEvent);
-				NextEvent newEvent = new Lose("lose",Double.MAX_VALUE,packetName,currentLocation);
+				NextEvent newEvent = new Wait("wait",Double.MAX_VALUE,packetName,currentLocation);
 				Packets.get(packetName).setNextEvent(newEvent);
-				
 			}
+			
 			
 		}
 		else if(currentLocationType.equals("OutputQ")){
 			
-	//		System.out.println(Packets.get(packetName).getID()+" is in outputQ "+currentLocation);
+			
 			if(OutputBuffer.get(currentLocation).packetIsAtExit(packetName.toString())){
 				if(Links.get(currentLocation).linkIsClear()){
+					Links.get(currentLocation).acquireLink();
+					System.out.println(Packets.get(packetName).getID()+" ############is in outputQ "+currentLocation);
 					//System.out.println("time for transmission: "+Routers.get(currentLocation.split(" to ")[0]).getTransmittingDelay(Packets.get(packetName).getSize()));
 					NextEvent newEvent = new TransmitToLink("transmitToLink",Links.get(currentLocation).getTransmissionDelay(Packets.get(packetName).getSize()),currentLocation,currentLocation,packetName);
 					Packets.get(packetName).setNextEvent(newEvent);
@@ -215,6 +231,9 @@ public class Simulator {
 		else{
 	//		System.out.println("ftw");
 		}
+	}
+	private boolean tryToPushPacket(int nextRouter, int routerID,int priorityValue, double size) {		
+		return OutputBuffer.get(routerID+" to "+nextRouter).priorityDiscard(priorityValue,size);
 	}
 	private boolean checkInputQ(String currentLocation, double packetSize) {
 		return InputBuffer.get(currentLocation).addPacketVirtually(packetSize);
@@ -257,7 +276,7 @@ public class Simulator {
         			int router2=Integer.valueOf(cmd[1]);
         			double linkDistance = Double.parseDouble(cmd[2]);
         			double transmissionRate = Double.parseDouble(cmd[3]);
-        			double qCapacity = transmissionRate; //as for now
+        			double qCapacity = 10F;//transmissionRate; //as for now
         			
         			Link tempLink1 = new Link((router1)+" to "+(router2),"onLink",linkDistance,transmissionRate);
         			Links.put((router1)+" to "+(router2), tempLink1);

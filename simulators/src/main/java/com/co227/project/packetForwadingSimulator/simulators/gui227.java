@@ -11,9 +11,9 @@ import javax.swing.table.DefaultTableModel;
 public class gui227 extends JFrame {
 	private DrawGraph graph;
 	private int validPackets=0;
-    private JButton injectBtn,exit,minimize,graphBtn,runBtn;
+    private JButton injectBtn,exit,minimize,graphBtn,runBtn,clearBtn;
     private JPanel mainPanel;
-    private Dimension FRAME_SIZE = new Dimension(600, 600);// dimension for main panel
+    private Dimension FRAME_SIZE = new Dimension(700, 600);// dimension for main panel
     private Color backgroundColor = new Color(16, 16, 16); 
     private JFrame f2;
     private static JTextField jTextField0;
@@ -25,6 +25,7 @@ public class gui227 extends JFrame {
     private JTextField jTextField5,jTextField6,jTextField7,jTextField8;
     private JTextField jTextField9,jTextField10,jTextField11,jTextField12;
     private JTextField jTextField13,jTextField14,jTextField15,jTextField16;
+    private JTextField jTextFieldPriority1,jTextFieldPriority2,jTextFieldPriority3,jTextFieldPriority4;
     
     private int Routers = 10;
     private static ArrayList<ArrayList<String>>injectedPackets;
@@ -86,6 +87,13 @@ public class gui227 extends JFrame {
         packetSize.setFont(new Font("Tahoma",Font.PLAIN , 18));
         mainPanel.add(packetSize);
         
+        JLabel priorityValue = new JLabel("Priority");
+        priorityValue.setForeground(Color.WHITE);
+        priorityValue.setSize(100, 40);
+        priorityValue.setLocation(500, 100);
+        priorityValue.setFont(new Font("Tahoma",Font.PLAIN , 18));
+        mainPanel.add(priorityValue);
+        
         JLabel noOfPackets = new JLabel("#Packets");
         noOfPackets.setForeground(Color.WHITE);
         noOfPackets.setSize(100, 40);
@@ -122,6 +130,11 @@ public class gui227 extends JFrame {
         jTextField4.setLocation(400, 160);
         mainPanel.add(jTextField4);
         
+        jTextFieldPriority1 = new JTextField();
+        jTextFieldPriority1.setSize(100, 40);
+        jTextFieldPriority1.setLocation(500, 160);
+        mainPanel.add(jTextFieldPriority1);
+        
         
         jTextField5 = new JTextField();
         jTextField5.setSize(100, 40);
@@ -143,6 +156,11 @@ public class gui227 extends JFrame {
         jTextField8.setSize(100, 40);
         jTextField8.setLocation(400, 260);
         mainPanel.add(jTextField8);
+        
+        jTextFieldPriority2 = new JTextField();
+        jTextFieldPriority2.setSize(100, 40);
+        jTextFieldPriority2.setLocation(500, 260);
+        mainPanel.add(jTextFieldPriority2);
         
         
         jTextField9 = new JTextField();
@@ -166,7 +184,10 @@ public class gui227 extends JFrame {
         jTextField12.setLocation(400, 360);        
         mainPanel.add(jTextField12);
         
-        
+        jTextFieldPriority3 = new JTextField();
+        jTextFieldPriority3.setSize(100, 40);
+        jTextFieldPriority3.setLocation(500, 360);
+        mainPanel.add(jTextFieldPriority3);
         
         jTextField13 = new JTextField();
         jTextField13.setSize(100, 40);
@@ -188,7 +209,10 @@ public class gui227 extends JFrame {
         jTextField16.setLocation(400, 460);
         mainPanel.add(jTextField16);
         
-        
+        jTextFieldPriority4 = new JTextField();
+        jTextFieldPriority4.setSize(100, 40);
+        jTextFieldPriority4.setLocation(500, 460);
+        mainPanel.add(jTextFieldPriority4);
         
         // inject button
         injectBtn = new JButton("Inject");
@@ -230,6 +254,43 @@ public class gui227 extends JFrame {
         });
         mainPanel.add(runBtn);
         
+     // clearBtn button
+        clearBtn = new JButton("Clear");
+        clearBtn.setSize(100, 40);
+        clearBtn.setLocation(500, 500);
+        clearBtn.setFocusable(false);
+        clearBtn.setFont(new Font("Tahoma",Font.PLAIN , 16));	
+        clearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cactionPerformed(evt);
+            }
+
+			private void cactionPerformed(ActionEvent evt) {
+				jTextField0.setText("");
+		        jTextField1.setText("");
+		        jTextField2.setText("");
+		        jTextField3.setText("");
+		        jTextField4.setText("");
+		        jTextField5.setText("");
+		        jTextField6.setText("");
+		        jTextField7.setText("");
+		        jTextField8.setText("");
+		        jTextField9.setText("");
+		        jTextField10.setText("");
+		        jTextField11.setText("");
+		        jTextField12.setText("");
+		        jTextField13.setText("");
+		        jTextField14.setText("");
+		        jTextField15.setText("");
+		        jTextField16.setText("");
+		        jTextFieldPriority1.setText("");
+		        jTextFieldPriority2.setText("");
+		        jTextFieldPriority3.setText("");
+		        jTextFieldPriority4.setText("");
+			}
+        });
+        mainPanel.add(clearBtn);
+        
       
         
        
@@ -256,6 +317,7 @@ public class gui227 extends JFrame {
             packetDetails.add(jTextField2.getText());
             packetDetails.add(jTextField3.getText());
             packetDetails.add(jTextField4.getText());
+            packetDetails.add(jTextFieldPriority1.getText());
             injectedPackets.add(packetDetails); 
         }
         if( checkValidity( jTextField5.getText(),jTextField6.getText(),jTextField7.getText()) ){
@@ -265,6 +327,7 @@ public class gui227 extends JFrame {
             packetDetails.add(jTextField6.getText());
             packetDetails.add(jTextField7.getText());
             packetDetails.add(jTextField8.getText());
+            packetDetails.add(jTextFieldPriority2.getText());
             injectedPackets.add(packetDetails);       
         }
         if( checkValidity( jTextField9.getText(),jTextField10.getText(),jTextField11.getText()) ){
@@ -274,6 +337,7 @@ public class gui227 extends JFrame {
             packetDetails.add(jTextField10.getText());
             packetDetails.add(jTextField11.getText());
             packetDetails.add(jTextField12.getText());
+            packetDetails.add(jTextFieldPriority3.getText());
             injectedPackets.add(packetDetails);       
         }
         
@@ -284,27 +348,13 @@ public class gui227 extends JFrame {
             packetDetails.add(jTextField14.getText());
             packetDetails.add(jTextField15.getText());
             packetDetails.add(jTextField16.getText());
+            packetDetails.add(jTextFieldPriority4.getText());
             injectedPackets.add(packetDetails);       
         }
         
         
-        jTextField0.setText("");
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jTextField4.setText("");
-        jTextField5.setText("");
-        jTextField6.setText("");
-        jTextField7.setText("");
-        jTextField8.setText("");
-        jTextField9.setText("");
-        jTextField10.setText("");
-        jTextField11.setText("");
-        jTextField12.setText("");
-        jTextField13.setText("");
-        jTextField14.setText("");
-        jTextField15.setText("");
-        jTextField16.setText("");
+        
+        
     }
     
     public void exitactionPerformed(ActionEvent e) {
@@ -342,7 +392,7 @@ public class gui227 extends JFrame {
 		//	System.out.println(length);
 			for(int i=0;i<length;i++){
 	//			System.out.println("adding Packets");
-				Packet packet = new Packet( injectedPackets.get(i).get(0),Integer.parseInt(injectedPackets.get(i).get(1)),Integer.parseInt(injectedPackets.get(i).get(2)),Double.parseDouble(injectedPackets.get(i).get(3)),"InputQ",injectedPackets.get(i).get(1)+" to "+injectedPackets.get(i).get(1));
+				Packet packet = new Packet( injectedPackets.get(i).get(0),Integer.parseInt(injectedPackets.get(i).get(4)),Integer.parseInt(injectedPackets.get(i).get(1)),Integer.parseInt(injectedPackets.get(i).get(2)),Double.parseDouble(injectedPackets.get(i).get(3)),"InputQ",injectedPackets.get(i).get(1)+" to "+injectedPackets.get(i).get(1));
 				if(Simulator.InputBuffer.get(injectedPackets.get(i).get(1)+" to "+injectedPackets.get(i).get(1)).addPacketVirtually(Double.parseDouble(injectedPackets.get(i).get(3)))){
 			     	Simulator.InputBuffer.get(injectedPackets.get(i).get(1)+" to "+injectedPackets.get(i).get(1)).addPacket(injectedPackets.get(i).get(0));
 			     	Simulator.Packets.put(injectedPackets.get(i).get(0), packet);

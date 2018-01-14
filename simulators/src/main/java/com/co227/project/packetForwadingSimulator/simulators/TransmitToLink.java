@@ -15,6 +15,9 @@ public class TransmitToLink extends NextEvent{
 		Simulator.Links.get(outputQKey).addPacketIn(packetName);
 		Simulator.Packets.get(packetName).updateCurrentLocation(linkKey);
 		Simulator.Packets.get(packetName).updateCurrentLocationType("transmittedToLink");
+//		//
+//		System.out.println(this.packetName+" is on here in the transmitToLink Class "+Simulator.Packets.get(packetName).getCurrentLocationType());
+//		//
 		System.out.println(this.packetName+" is transmitted to link "+linkKey);
 	}
 

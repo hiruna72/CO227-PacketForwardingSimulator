@@ -26,13 +26,16 @@ public class Link {
 	}
 	public void addPacketIn(String packetName){
 		this.packetOnLink = packetName;
-		linkIsClear=!linkIsClear;
+		linkIsClear=false;
 	}
 	public double getPropagatingDelay() {
 		return this.linkDistance/linkPropagationSpeed;
 	}
 	public double getTransmissionDelay(double psize) {
 		return (psize*1000)/this.transmissionRate;
+	}
+	public void acquireLink(){
+		linkIsClear=false;
 	}
 
 }

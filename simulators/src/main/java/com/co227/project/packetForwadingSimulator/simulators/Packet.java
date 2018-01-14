@@ -3,6 +3,7 @@ package com.co227.project.packetForwadingSimulator.simulators;
 import java.util.ArrayList;
 
 public class Packet {
+	private int priorityValue;
 	private int src,dest;
 	private double size;
 	private ArrayList<NextEvent>events;
@@ -12,10 +13,11 @@ public class Packet {
 	private String currentLocationType;
 	private NextEvent nextEvent;
 	private boolean livePacket;
-	Packet(String packetName,int src,int dest,double size, String currentLocationType, String currentLocation){
+	Packet(String packetName,int priorityValue, int src,int dest,double size, String currentLocationType, String currentLocation){
 		this.src=src;
 		this.dest=dest;
 		this.packetName=packetName;
+		this.priorityValue = priorityValue;
 		this.size=size;
 		this.events = new ArrayList<NextEvent>();
 		this.locationsVisited = new ArrayList<String>();
@@ -76,6 +78,9 @@ public class Packet {
 			System.out.println("router: "+this.locationsVisited.get(i));
 		}
 		
+	}
+	public int getPriorityValue(){
+		return this.priorityValue;
 	}
 	
 	
