@@ -5,6 +5,7 @@ package sample;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -51,12 +53,24 @@ public class LoaderScreenController implements Initializable
                             //Scene scene = new Scene(root);
                             Stage stage = new Stage();
                             Controller controller = (Controller)loader.getController();
-                            stage.setScene(new Scene(root, 750, 552));
+                            stage.setScene(new Scene(root, 808, 595));
                             controller.init(stage);
                             stage.setTitle("Simulator");
+                            stage.setFullScreen(false);
+                            stage.setResizable(false);
                             stage.show();
 
                             loaderPane.getScene().getWindow().hide();
+
+                            stage.setOnCloseRequest(new EventHandler<WindowEvent>()
+                            {
+                                @Override
+                                public void handle(WindowEvent event)
+                                {
+                                    Platform.exit();
+                                    System.exit(0);
+                                }
+                            });
 
                         }catch (IOException e){
                             e.printStackTrace();

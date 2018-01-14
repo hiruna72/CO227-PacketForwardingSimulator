@@ -22,7 +22,7 @@ public class Router {
 
 	public double getProcessingDelay()
 	{
-		return this.processingDelay;
+		return this.processingDelay/1000;
 	}
 
 	public void changeProcessingDelay(double processingTime)

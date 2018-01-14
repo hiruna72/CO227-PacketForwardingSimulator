@@ -65,10 +65,10 @@ public class Main extends Application
         return new Task() {
             @Override
             protected Object call() throws Exception {
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 3; i++) {
                     Thread.sleep(1000);
                     //updateMessage("2000 milliseconds");
-                    updateProgress(i + 1, 5);
+                    updateProgress(i + 1, 3);
                 }
                 return true;
             }

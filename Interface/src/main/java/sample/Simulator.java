@@ -1,9 +1,12 @@
 package sample;
 
+import javafx.scene.control.Alert;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,6 +19,7 @@ public class Simulator
 	public static HashMap<String,Router> Routers = new HashMap<>();
 	public static HashMap<String,Link> Links = new HashMap<>();
 	public static ConcurrentHashMap<String,Packet> Packets = new ConcurrentHashMap<>();
+	public static ArrayDeque<Packet> deadPackets = new ArrayDeque<>();
 	public static HashMap<String,Queue> InputBuffer = new HashMap<>();
 	public static HashMap<String,Queue> OutputBuffer = new HashMap<>();
 	public static boolean injectDone = true;
@@ -38,6 +42,20 @@ public class Simulator
 		while(true)
         {
 			iteratePackets();
+
+			if(!deadPackets.isEmpty())
+            {
+                if(!Controller.deadPacketData.contains(deadPackets.peekLast()))
+                {
+                    Controller.deadPacketData.add(deadPackets.getLast());
+                }
+            }
+
+			if(Controller.simulateState)
+			{
+                Controller.simulateState = false;
+				break;
+			}
 		}
 		
 	}
@@ -71,7 +89,7 @@ public class Simulator
 			}
 			
 		}
-		//excute the events
+		//execute the events
 		if(leastEventTime<Double.MAX_VALUE){
 			timeElapsed+=leastEventTime;
 		//	System.out.println("################################");
@@ -83,21 +101,18 @@ public class Simulator
 				}
 				
 			}
-			System.out.println("######################################################### time: "+timeElapsed);
+			System.out.println("######################################################### time: "+timeElapsed+"ms");
 		}
-		//check for new injected packets
-		//gui227.addNewPackets();
 
 		if(Controller.addPacketStatus)
         {
             try {
-                Thread.sleep(4000);
+                Thread.sleep(2000);
                 Controller.addPacketStatus = false;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
 	}
 
 	public static void executeNextEvent(String key, double leastEventTime) {
@@ -131,30 +146,52 @@ public class Simulator
 				if(nextRouter==-1){
 					NextEvent newEvent = new Reach("reached",Routers.get(routerID+"").getProcessingDelay(),packetName,currentLocation);
 					Packets.get(packetName).setNextEvent(newEvent);
-
-				}
-
-				else if(checkOutputQ(nextRouter,routerID,Packets.get(packetName).getSize())){
+					deadPackets.addLast(Packets.get(packetName));
+					Packets.get(packetName).timeDead = timeElapsed;
+                }
+				else if(checkOutputQ(nextRouter,routerID,Packets.get(packetName).getSize()))
+				{
 					NextEvent newEvent = new ProcessSwitch("process&switch",Routers.get(routerID+"").getProcessingDelay(),currentLocation,routerID+" to "+nextRouter,packetName);
 					Packets.get(packetName).setNextEvent(newEvent);
 				}
-				else{
-					NextEvent newEvent = new Wait("wait",Double.MAX_VALUE,packetName,currentLocation);
-					Packets.get(packetName).setNextEvent(newEvent);
+				else
+                {
+					//FIFO priority remove
+					//now the packet has not enough space
+					//hence check outputQ's packets(from the first packet) whether they are less prior to the packet
+					//if so the packet is removed
+					//this is done until packet gets enough space
+					//even if removing suitable packets does not create enough space all the packets(packet and the packets removed) are lost
+					if(tryToPushPacket(nextRouter,routerID,Packets.get(packetName).getPriorityValue(),Packets.get(packetName).getSize()))
+					{
+						NextEvent newEvent = new ProcessSwitch("process&switch",Routers.get(routerID+"").getProcessingDelay(),currentLocation,routerID+" to "+nextRouter,packetName);
+						Packets.get(packetName).setNextEvent(newEvent);
+					}
+					else
+					{
+						//instead of waiting until outputQ gets empty lose the packet
+						//NextEvent newEvent = new Wait("wait",Double.MAX_VALUE,packetName,currentLocation);
+						//Packets.get(packetName).setNextEvent(newEvent);
+						NextEvent newEvent = new Lose("lose",Double.MAX_VALUE,packetName,currentLocation,currentLocationType);
+						Packets.get(packetName).setNextEvent(newEvent);
+                        deadPackets.addLast(Packets.get(packetName));
+					}
 				}
-				
 			}
-			else{
+			else
+            {
 				NextEvent newEvent = new Wait("wait",Double.MAX_VALUE,packetName,currentLocation);
 				Packets.get(packetName).setNextEvent(newEvent);
 			}
-			
 		}
 		else if(currentLocationType.equals("OutputQ")){
 			
 	//		System.out.println(Packets.get(packetName).getID()+" is in outputQ "+currentLocation);
 			if(OutputBuffer.get(currentLocation).packetIsAtExit(packetName.toString())){
-				if(Links.get(currentLocation).linkIsClear()){
+				if(Links.get(currentLocation).linkIsClear())
+				{
+					Links.get(currentLocation).acquireLink();
+					System.out.println(Packets.get(packetName).getID()+" ############is in outputQ "+currentLocation);
 					//System.out.println("time for transmission: "+Routers.get(currentLocation.split(" to ")[0]).getTransmittingDelay(Packets.get(packetName).getSize()));
 					NextEvent newEvent = new TransmitToLink("transmitToLink",Links.get(currentLocation).getTransmissionDelay(Packets.get(packetName).getSize()),currentLocation,currentLocation,packetName);
 					Packets.get(packetName).setNextEvent(newEvent);
@@ -180,6 +217,8 @@ public class Simulator
 			else{
 				NextEvent newEvent = new Lose("lose",Double.MAX_VALUE,packetName,currentLocation);
 				Packets.get(packetName).setNextEvent(newEvent);
+                deadPackets.addLast(Packets.get(packetName));
+                Packets.get(packetName).timeDead = timeElapsed;
 			}
 		}
 		else if(currentLocationType.equals("transmittedToLink")){
@@ -191,6 +230,10 @@ public class Simulator
 		else{
 	//		System.out.println("ftw");
 		}
+	}
+	private static boolean tryToPushPacket(int nextRouter, int routerID,int priorityValue, double size)
+	{
+		return OutputBuffer.get(routerID+" to "+nextRouter).priorityDiscard(priorityValue,size);
 	}
 	public static boolean checkInputQ(String currentLocation, double packetSize) {
 		return InputBuffer.get(currentLocation).addPacketVirtually(packetSize);
@@ -213,6 +256,7 @@ public class Simulator
         		if(firstLine){
         			noRouters=Integer.valueOf(cmd[0]);
         			noLinks=Integer.valueOf(cmd[1]);
+        			Controller.routerCount = noRouters;
         			adjecencyMat = new int[noRouters][noRouters];
         			firstLine=false;
         			secondLine=true;
@@ -265,13 +309,72 @@ public class Simulator
         {
             e.printStackTrace();
         }
-
-//		for(int i=0;i<adjecencyMat.length;i++){
-//			for(int j=0;j<adjecencyMat.length;j++){
-//				System.out.print(adjecencyMat[i][j]+" ");
-//			}
-//			System.out.println();
-//		}
 	}
-	
+
+	public static void setUpPacketTable(File file)
+    {
+        String line = "";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file)))
+        {
+            while ((line = br.readLine()) != null)
+            {
+                String[] cmd = line.split(" ");
+                String packetID = cmd[0];
+                int sourceRouter = Integer.valueOf(cmd[1]);
+                int destinationRouter = Integer.valueOf(cmd[2]);
+                double packetSize = Double.parseDouble(cmd[3]);
+                int priorityVal = Integer.valueOf(cmd[4]);
+
+                if(noRouters>0)
+                {
+                    if ((destinationRouter < noRouters) && (sourceRouter < noRouters))
+                    {
+                            Controller.addPacketStatus = true;
+
+                            System.out.println("Adding Packets.....");
+                            Packet packet = new Packet(packetID,priorityVal, sourceRouter, destinationRouter, packetSize, "InputQ", sourceRouter + " to " + sourceRouter);
+                            if (Simulator.InputBuffer.get(sourceRouter + " to " + sourceRouter).addPacketVirtually(packetSize))
+                            {
+                                Simulator.InputBuffer.get(sourceRouter + " to " + sourceRouter).addPacket(packetID);
+                                Simulator.Packets.put(packetID, packet);
+                            }
+                            else
+                            {
+                                System.out.println(sourceRouter + " to " + sourceRouter + " InputQ is full " + packetID + " is lost");
+                                deadPackets.addLast(Packets.get(packetID));
+                            }
+                            Controller.packetData.add(packet);
+                    }
+                    else
+                    {
+                        Controller.packetData.clear();
+                        Packets.clear();
+                        InputBuffer.clear();
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("One or more packets source/destination is out of bound");
+                        alert.showAndWait();
+                    }
+                }
+                else
+                {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Input Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter the number of routers");
+                    alert.showAndWait();
+                }
+            }
+        }
+        catch (IOException e)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setHeaderText(null);
+            alert.setContentText("File Input Failed");
+            alert.showAndWait();
+        }
+    }
 }

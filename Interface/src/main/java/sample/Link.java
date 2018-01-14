@@ -2,7 +2,7 @@ package sample;
 
 public class Link
 {
-	public static double linkPropagationSpeed = 2; //2*10^8 m per second
+	public static double linkPropagationSpeed = 200000; //2*10^5 m per second
 	private String linkID;
 	private double linkDistance;
 	private double transmissionRate;
@@ -34,7 +34,7 @@ public class Link
 	public void addPacketIn(String packetName)
 	{
 		this.packetOnLink = packetName;
-		linkIsClear=!linkIsClear;
+		linkIsClear=false;
 	}
 
 	public double getPropagatingDelay()
@@ -44,7 +44,7 @@ public class Link
 
 	public double getTransmissionDelay(double psize)
 	{
-		return psize/this.transmissionRate;
+		return (psize*1000)/this.transmissionRate;
 	}
 
 	public String getLinkID()
@@ -60,5 +60,8 @@ public class Link
 	public double getTransmissionRate()
 	{
 		return transmissionRate;
+	}
+	public void acquireLink(){
+		linkIsClear=false;
 	}
 }
