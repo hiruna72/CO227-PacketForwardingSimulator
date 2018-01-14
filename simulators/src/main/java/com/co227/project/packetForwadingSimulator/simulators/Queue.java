@@ -51,7 +51,7 @@ public class Queue {
 					size-=Simulator.Packets.get(packetID).getSize();
 					NextEvent newEvent = new Lose("lose",Double.MAX_VALUE,packetID,this.qID,this.currentLocationType);
 					Simulator.Packets.get(packetID).setNextEvent(newEvent);
-					if(size<=0){
+					if(size<=this.qCapacity){
 						return true;
 					}
 				}
