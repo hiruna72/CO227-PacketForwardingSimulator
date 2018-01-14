@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Interface.jnlp">
+  <information>
+    <title>Interface</title>
+    <vendor>Anjana Senanayake</vendor>
+    <description>Interface</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Interface.jar" size="6283474" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="sample.Main"  name="Interface" />
+  <update check="background"/>
+</jnlp>
