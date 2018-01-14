@@ -28,7 +28,7 @@ public class Queue {
 		return false;
 	}
 	public boolean packetIsAtExit(String packetName) {
-		System.out.println("########first element in the Q: "+packetName);
+	//	System.out.println("########first element in the Q: is "+this.buffer.getFirst()+" not packet "+packetName);
 		return this.buffer.getFirst().equals(packetName);
 	}
 	public String removePacket() {
@@ -36,7 +36,6 @@ public class Queue {
 		return this.buffer.removeFirst();
 	}
 	public void addPacket(String packetName) {
-		System.out.println("adding last"+packetName);
 		this.buffer.addLast(packetName);
 	}
 	public boolean priorityDiscard(int priorityValue,double size) {	
@@ -48,7 +47,6 @@ public class Queue {
 				String packetID =  itr.next();	
 				if(Simulator.Packets.get(packetID).getPriorityValue()<priorityValue){
 					this.buffer.remove(packetID);
-					System.out.println("first element in the Q: "+this.buffer.getFirst());
 					this.qCapacity+=Simulator.Packets.get(packetID).getSize();
 					size-=Simulator.Packets.get(packetID).getSize();
 					NextEvent newEvent = new Lose("lose",Double.MAX_VALUE,packetID,this.qID,this.currentLocationType);

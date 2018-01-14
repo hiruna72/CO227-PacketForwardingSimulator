@@ -79,9 +79,10 @@ public class Simulator {
 			{
 				boolean livingPacket = entry2.getValue().getPacketState();
 				if(livingPacket){
+					//System.out.println("before execution  "+entry2.getValue().getID()+" is on "+entry2.getValue().getCurrentLocation()+"  "+entry2.getValue().getCurrentLocationType());
 					this.executeNextEvent(entry2.getKey(),leastEventTime);
 					addToTimeSlot(entry2.getValue(),aTimeStamp);
-					System.out.println(entry2.getValue().getID()+" is on "+entry2.getValue().getCurrentLocation()+"  "+entry2.getValue().getCurrentLocationType());
+				//	System.out.println(entry2.getValue().getID()+" is on "+entry2.getValue().getCurrentLocation()+"  "+entry2.getValue().getCurrentLocationType());
 				}
 				
 			}
@@ -139,7 +140,7 @@ public class Simulator {
 		String currentLocationType = Packets.get(packetName).getCurrentLocationType();
 		String currentLocation = Packets.get(packetName).getCurrentLocation();
 		
-		System.out.println("@@  "+packetName+"  "+currentLocation+"  "+currentLocationType);
+		//System.out.println("@@  "+packetName+"  "+currentLocation+"  "+currentLocationType);
 		
 		if(currentLocationType.equals("InputQ")){
 			
@@ -192,7 +193,7 @@ public class Simulator {
 			if(OutputBuffer.get(currentLocation).packetIsAtExit(packetName.toString())){
 				if(Links.get(currentLocation).linkIsClear()){
 					Links.get(currentLocation).acquireLink();
-					System.out.println(Packets.get(packetName).getID()+" ############is in outputQ "+currentLocation);
+				//	System.out.println(Packets.get(packetName).getID()+" ############is in outputQ "+currentLocation);
 					//System.out.println("time for transmission: "+Routers.get(currentLocation.split(" to ")[0]).getTransmittingDelay(Packets.get(packetName).getSize()));
 					NextEvent newEvent = new TransmitToLink("transmitToLink",Links.get(currentLocation).getTransmissionDelay(Packets.get(packetName).getSize()),currentLocation,currentLocation,packetName);
 					Packets.get(packetName).setNextEvent(newEvent);

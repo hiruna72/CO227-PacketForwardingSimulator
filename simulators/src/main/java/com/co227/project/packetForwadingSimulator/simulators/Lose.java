@@ -26,12 +26,12 @@ public class Lose extends NextEvent {
 			System.out.println(packetName+" is lost in inputQ "+this.currentLocation);
 		}
 		else if(this.currentLocationType.equals("OutputQ")){
-			System.out.println(this.currentLocation);
+			//System.out.println(this.currentLocation);
 //			String temp1 = this.currentLocation.split(" to ")[0];
 //			String temp2= this.currentLocation.split(" to ")[1];
-			String tpn = Simulator.OutputBuffer.get(this.currentLocation).removePacket();
-			Simulator.Packets.get(packetName).markAsLost();
-			System.out.println(packetName+" is lost in outputQ "+this.currentLocation);
+			//String tpn = Simulator.OutputBuffer.get(this.currentLocation).removePacket();
+			Simulator.Packets.get(this.packetName).markAsLost();
+			System.out.println(this.packetName+" is lost in outputQ "+this.currentLocation);
 		}
 		else{
 			System.out.println("terminate");

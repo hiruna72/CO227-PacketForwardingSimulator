@@ -62,9 +62,12 @@ public class Packet {
 	}
 	public void updateCurrentLocation(String outputQKey) {
 		this.currentLocation = outputQKey;
+		//System.out.println(packetName+" has new locatioType "+this.currentLocation); 
 	}
 	public void updateCurrentLocationType(String currentLocationType) {
+		
 		this.currentLocationType = currentLocationType;
+		//System.out.println(packetName+" has new locatioType "+this.currentLocationType); 
 	}
 	public void markAsLost() {
 		this.livePacket = false;
@@ -73,10 +76,10 @@ public class Packet {
 		return this.livePacket;
 	}
 	public void showVisitedLocations() {
-		System.out.println(this.packetName+" packet's path:");
-		for(int i=0;i<this.locationsVisited.size();i++){
-			System.out.println("router: "+this.locationsVisited.get(i));
-		}
+//		System.out.println(this.packetName+" packet's path:");
+//		for(int i=0;i<this.locationsVisited.size();i++){
+//			System.out.println("router: "+this.locationsVisited.get(i));
+//		}
 		
 	}
 	public int getPriorityValue(){
