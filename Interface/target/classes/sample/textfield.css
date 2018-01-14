@@ -1,0 +1,11 @@
+.text-field {
+	-fx-background-color: #a9a9a9, white ,white;
+	-fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+	-fx-border: none;
+	-f-background: bottom left linear-gradient(#a9a9a9, #a9a9a9) no-repeat,bottom center linear-gradient(#a9a9a9,#a9a9a9) repeat-x,bottom right linear-gradient(#9a9a9,#9a9a9) no-repeat;
+}
+
+.text-field:focused{
+	-fx-background-color: #9a9a9, white , white;
+	-fx-background-insets: 0 -1 -1 -1 ,0 0 0 0,0 -1 3 -1;
+}
