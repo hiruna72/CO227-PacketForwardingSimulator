@@ -23,6 +23,9 @@ link distance 	   - meters		          (several meters to thousonds of kilometers
 transmiiting speed - kmPerSecond		    (2e+05)   
 
 
+packet injection  
+[packetName] [source] [destination] [packetSize] [priorityValue]
+
 
 the input used in the program  
 
