@@ -11,7 +11,8 @@ input file method
 [router1] [router2] [link distance] [transmissionRateofLink]  
 
 to run  
-compile and run app.java file
+compile and run app.java file in  
+[simulators/src/main/java/com/co227/project/packetForwadingSimulator/simulators/]
 
 
 the parameters are in following units
@@ -22,6 +23,9 @@ packet size 	     - kiloBytes		      (1-5)
 link distance 	   - meters		          (several meters to thousonds of kilometers)  
 transmiiting speed - kmPerSecond		    (2e+05)   
 
+
+packet injection  
+[packetName] [source] [destination] [packetSize] [priorityValue]
 
 
 the input used in the program  

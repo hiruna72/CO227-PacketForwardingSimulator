@@ -8,8 +8,31 @@
 }
 
 .tab-pane .tab{
+	-fx-background-color: orange,
+	linear-gradient(#ffd65b, #e68400),
+    linear-gradient(#ffef84, #f2ba44),
+    linear-gradient(#ffea6a, #efaa22),
+    linear-gradient(#ffe657 0%, #f8c202 60%, #eea10b 100%);
+	-fx-background-radius: 0.0 10.0 0.0 10.0;
+	-fx-focus-color: transparent;
+	-fx-faint-focus-color: transparent;
+}
+
+.tab-pane .tab:pressed{
 	-fx-background-color: orange;
+	-fx-tab-min-width:110.0px;
 	-fx-background-radius: 0.0 20.0 0.0 20.0;
+	-fx-focus-color: transparent;
+	-fx-faint-focus-color: transparent;
+}
+
+.tab-pane .tab:hover{
+	-fx-background-color: orange,
+	linear-gradient(#ffd65b, #e68400),
+    linear-gradient(#ffef84, #f2ba44),
+    linear-gradient(#ffea6a, #efaa22),
+    linear-gradient(#ffe657 0%, #f8c202 60%, #eea10b 50%);
+	-fx-background-radius: 0.0 10.0 0.0 10.0;
 	-fx-focus-color: transparent;
 	-fx-faint-focus-color: transparent;
 }

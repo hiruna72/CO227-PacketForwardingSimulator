@@ -1,24 +1,32 @@
 package sample;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
-public class Packet {
+public class Packet
+{
+	private int priorityValue;
 	private int src,dest;
 	private double size;
-	private ArrayList<NextEvent>events;
+	public static double timeDead;
+	public ArrayList<NextEvent> events;
+    public ArrayList<String> nodesVisited;
+	public LinkedHashMap<String,ArrayList<NextEvent>> eventOrder;
 	private String packetName;
 	private String currentLocation;
 	private String currentLocationType;
 	private NextEvent nextEvent;
 	private boolean livePacket;
 
-	Packet(String packetName,int src,int dest,double size, String currentLocationType, String currentLocation)
+	Packet(String packetName,int priorityValue,int src,int dest,double size, String currentLocationType, String currentLocation)
 	{
 		this.src=src;
 		this.dest=dest;
+		this.priorityValue = priorityValue;
 		this.packetName=packetName;
 		this.size=size;
-		this.events = new ArrayList<NextEvent>();
+		this.eventOrder = new LinkedHashMap<>();
+		this.nodesVisited = new ArrayList<>();
 		this.nextEvent=null;
 		this.livePacket = true;
 		this.currentLocationType = currentLocationType;
@@ -49,10 +57,25 @@ public class Packet {
 	public String getID() {
 		return this.packetName;
 	}
-	public void addToEvents() {
-		this.events.add(nextEvent);
+	public void addToEvents()
+    {
+        events = new ArrayList<>();
+        events.add(nextEvent);
+        if(eventOrder.containsKey(currentLocation))
+        {
+            eventOrder.get(currentLocation).add(nextEvent);
+        }
+        else
+        {
+            eventOrder.put(currentLocation,events);
+        }
+		this.addtoNodes();
 		this.nextEvent=null;
 	}
+	public void addtoNodes()
+    {
+        this.nodesVisited.add(currentLocation);
+    }
 	public void updateCurrentLocation(String outputQKey) {
 		this.currentLocation = outputQKey;
 	}
@@ -69,5 +92,8 @@ public class Packet {
 	public String getPacketName()
 	{
 		return packetName;
+	}
+	public int getPriorityValue(){
+		return this.priorityValue;
 	}
 }
