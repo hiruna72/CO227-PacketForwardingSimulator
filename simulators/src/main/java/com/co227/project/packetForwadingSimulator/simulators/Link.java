@@ -36,7 +36,7 @@ public class Link {
 		return this.linkDistance/linkPropagationSpeed;
 	}
 	public double getTransmissionDelay(double psize) {
-		return (psize*1000)/this.transmissionRate;
+		return (psize*8)/this.transmissionRate;
 	}
 	public void acquireLink(){
 		linkIsClear=false;
