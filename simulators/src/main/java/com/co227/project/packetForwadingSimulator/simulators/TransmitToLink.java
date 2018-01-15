@@ -12,13 +12,9 @@ public class TransmitToLink extends NextEvent{
 	public void excuteEvent(double leastEventTime) {
 		this.timeForEvent=leastEventTime;
 		String packetName = Simulator.OutputBuffer.get(outputQKey).removePacket();
-	//	System.out.println("removed packet: "+packetName);
 		Simulator.Links.get(outputQKey).addPacketIn(this.packetName);
 		Simulator.Packets.get(this.packetName).updateCurrentLocation(linkKey);
 		Simulator.Packets.get(this.packetName).updateCurrentLocationType("transmittedToLink");
-//		//
-//		System.out.println(this.packetName+" is on here in the transmitToLink Class "+Simulator.Packets.get(packetName).getCurrentLocationType());
-//		//
 		System.out.println(this.packetName+" is transmitted to link "+linkKey);
 	}
 

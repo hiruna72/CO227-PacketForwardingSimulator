@@ -191,6 +191,8 @@ public class Simulator {
 			
 			
 			if(OutputBuffer.get(currentLocation).packetIsAtExit(packetName.toString())){
+//				NextEvent newEvent = new TransmitToLink("transmitToLink",Links.get(currentLocation).getTransmissionDelay(Packets.get(packetName).getSize()),currentLocation,currentLocation,packetName);
+//				Packets.get(packetName).setNextEvent(newEvent);
 				if(Links.get(currentLocation).linkIsClear()){
 					Links.get(currentLocation).acquireLink();
 				//	System.out.println(Packets.get(packetName).getID()+" ############is in outputQ "+currentLocation);
