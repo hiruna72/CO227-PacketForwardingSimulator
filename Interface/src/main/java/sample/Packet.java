@@ -8,7 +8,7 @@ public class Packet
 	private int priorityValue;
 	private int src,dest;
 	private double size;
-	public static double timeDead;
+	private double timeDead;
 	public ArrayList<NextEvent> events;
     public ArrayList<String> nodesVisited;
 	public LinkedHashMap<String,ArrayList<NextEvent>> eventOrder;
@@ -95,5 +95,15 @@ public class Packet
 	}
 	public int getPriorityValue(){
 		return this.priorityValue;
+	}
+
+	public void setTimeDead(double timeDead)
+	{
+		this.timeDead = timeDead;
+	}
+
+	public double getTimeDead()
+	{
+		return this.timeDead;
 	}
 }

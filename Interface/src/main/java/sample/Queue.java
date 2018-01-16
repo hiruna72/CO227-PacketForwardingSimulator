@@ -15,6 +15,7 @@ public class Queue
 	{
 		this.qID = qID;
 		this.qCapacity = qCapacity;
+		this.initialQcapacity = qCapacity;
 		this.currentLocationType = currentLocationType;
 		this.currentLocation = currentLocation;
 		this.buffer = new ArrayDeque<>();
@@ -58,7 +59,9 @@ public class Queue
 	}
 	public boolean priorityDiscard(int priorityValue,double size)
 	{
+
 		if(size<=this.initialQcapacity){
+            //System.out.println("%%%%%%%%");
 			Iterator<String> itr = this.buffer.iterator();
 			//to avoid messing up with packet about to be transmitted(or the packet that is already transmitting skip the first)
 			itr.next();
@@ -66,12 +69,13 @@ public class Queue
 				String packetID =  itr.next();
 				if(Simulator.Packets.get(packetID).getPriorityValue()<priorityValue){
 					this.buffer.remove(packetID);
-					System.out.println("first element in the Q: "+this.buffer.getFirst());
+					//System.out.println("first element in the Q: "+this.buffer.getFirst());
 					this.qCapacity+=Simulator.Packets.get(packetID).getSize();
 					size-=Simulator.Packets.get(packetID).getSize();
-					NextEvent newEvent = new Lose("lose",Double.MAX_VALUE,packetID,this.qID,this.currentLocationType);
+                    NextEvent newEvent = new Lose("lose",Double.MAX_VALUE,packetID,this.qID,this.currentLocationType);
+                    Simulator.deadPackets.addLast(Simulator.Packets.get(packetID));
 					Simulator.Packets.get(packetID).setNextEvent(newEvent);
-					if(size<=0){
+					if(size<=this.qCapacity){
 						return true;
 					}
 				}

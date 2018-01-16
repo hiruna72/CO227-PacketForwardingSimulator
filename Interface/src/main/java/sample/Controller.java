@@ -78,6 +78,8 @@ public class Controller implements Initializable
     Button addLinkButton,deleteLinkButton,deletePacketButton,networkInitializer;
     @FXML
     Button addPacketButton,resetAllButton;
+    @FXML
+    Button drawGraphButton,runGraphButton;
 
     @FXML
     public AnchorPane pane;
@@ -86,6 +88,7 @@ public class Controller implements Initializable
     @FXML
     public TextArea console,packetInfoArea;
     private PrintStream printStream ;
+    private DrawGraph graph;
 
     @FXML
     MenuBar myMenuBar;
@@ -249,6 +252,9 @@ public class Controller implements Initializable
         simulateButton.setDisable(false);
         addPacketButton.setDisable(false);
         deletePacketButton.setDisable(false);
+        drawGraphButton.setDisable(false);
+        runGraphButton.setDisable(false);
+
     }
 
     @FXML
@@ -340,6 +346,9 @@ public class Controller implements Initializable
             addPacketButton.setDisable(true);
             deletePacketButton.setDisable(true);
             resetAllButton.setDisable(true);
+            drawGraphButton.setDisable(true);
+            runGraphButton.setDisable(true);
+
             progressIndicator.progressProperty().unbind();
             forwardingTable = null;
             //adjecencyMat = null;
@@ -363,6 +372,7 @@ public class Controller implements Initializable
                     Controller.linkData.add(tempLink1);
                     Link tempLink2 = new Link(router2 + " to " + router1, "onLink", linkDistance, linkRate);
                     Links.put(router2 + " to " + router1, tempLink2);
+                    simpleLinks.add(router1+" to "+router2);
 
                     Queue tempQ1 = new Queue((router1) + " to " + (router2), "InputQ", "" + (router2), linkRate);
                     Queue tempQ2 = new Queue((router2) + " to " + (router1), "InputQ", "" + (router1), linkRate);
@@ -475,6 +485,7 @@ public class Controller implements Initializable
                         {
                             System.out.println(src + " to " + src + " InputQ is full " + packetNameField.getText() + " is lost");
                             deadPackets.addLast(Packets.get(packetName));
+                            Packets.get(packetName).setTimeDead(timeElapsed);
                         }
                         packetData.add(packet);
                     } catch (IndexOutOfBoundsException k) {
@@ -594,7 +605,7 @@ public class Controller implements Initializable
         {
             String info = "Packet Name: " + deadPacketData.get(i).getPacketName() + "\nPacket Size: " + deadPacketData.get(i).getSize() + "\nPacket Source: " + deadPacketData.get(i).getSrc() + "\nPacket Destination: " + deadPacketData.get(i).getDest();
             packetInfoArea.setText(info);
-            packetInfoArea.appendText("\nElapsed Time: "+deadPacketData.get(i).timeDead);
+            packetInfoArea.appendText("\nElapsed Time: "+deadPacketData.get(i).getTimeDead()+"ms");
             packetInfoArea.appendText("\nPacket Route: \n");
             for (Map.Entry<String,ArrayList<NextEvent>> entry : deadPacketData.get(i).eventOrder.entrySet())
             {
@@ -607,6 +618,19 @@ public class Controller implements Initializable
             }
         }
     }
+
+    @FXML
+    private void drawGraph(ActionEvent e)
+    {
+        graph = new DrawGraph(Simulator.timeStamps);
+    }
+
+    @FXML
+    private void runGraph(ActionEvent e)
+    {
+        this.graph.startTimer();
+    }
+
     @FXML
     public void resetAll(ActionEvent e)
     {
@@ -618,6 +642,8 @@ public class Controller implements Initializable
         Links.clear();
         Packets.clear();
         deadPackets.clear();
+        Simulator.simpleLinks.clear();
+        Simulator.timeStamps.clear();
         InputBuffer.clear();
         OutputBuffer.clear();
         routerData.clear();
@@ -626,7 +652,9 @@ public class Controller implements Initializable
         console.clear();
         deadPacketData.clear();
         packetInfoArea.clear();
-        simulateButton.setDisable(false);
+        simulateButton.setDisable(true);
+        drawGraphButton.setDisable(true);
+        runGraphButton.setDisable(true);
         networkInitializer.setDisable(false);
         addPacketButton.setDisable(true);
         deletePacketButton.setDisable(true);
@@ -636,6 +664,7 @@ public class Controller implements Initializable
         numRoutersField.setAlignment(Pos.CENTER_LEFT);
         adjecencyMat = null;
         forwardingTable = null;
+
     }
 
     public static void reset()

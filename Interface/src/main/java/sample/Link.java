@@ -1,5 +1,7 @@
 package sample;
 
+import java.util.ArrayDeque;
+
 public class Link
 {
 	public static double linkPropagationSpeed = 200000; //2*10^5 m per second
@@ -9,6 +11,7 @@ public class Link
 	private boolean linkIsClear;
 	private String packetOnLink;
 	private String currentLocationType;
+	private ArrayDeque<String> buffer;
 
 	public Link(String linkId,String currentLocationType, double linkDistance,double transmissionRate)
 	{
@@ -18,6 +21,7 @@ public class Link
 		this.linkDistance = linkDistance;
 		this.transmissionRate = transmissionRate;
 		this.packetOnLink = null;
+		this.buffer = new ArrayDeque<>();
 	}
 
 	boolean linkIsClear()
@@ -28,12 +32,13 @@ public class Link
 	public String getPacketOut()
 	{
 		linkIsClear=!linkIsClear;
-		return this.packetOnLink;
+		return this.buffer.removeFirst();
 	}
 
 	public void addPacketIn(String packetName)
 	{
-		this.packetOnLink = packetName;
+		this.buffer.addLast(packetName);
+		//this.packetOnLink = packetName;
 		linkIsClear=false;
 	}
 
@@ -44,7 +49,7 @@ public class Link
 
 	public double getTransmissionDelay(double psize)
 	{
-		return (psize*1000)/this.transmissionRate;
+		return (psize*8)/this.transmissionRate;
 	}
 
 	public String getLinkID()

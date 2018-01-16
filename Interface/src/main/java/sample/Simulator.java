@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,9 +21,12 @@ public class Simulator
 	public static HashMap<String,Link> Links = new HashMap<>();
 	public static ConcurrentHashMap<String,Packet> Packets = new ConcurrentHashMap<>();
 	public static ArrayDeque<Packet> deadPackets = new ArrayDeque<>();
+	public static ArrayList<String> simpleLinks= new ArrayList<>();
 	public static HashMap<String,Queue> InputBuffer = new HashMap<>();
 	public static HashMap<String,Queue> OutputBuffer = new HashMap<>();
-	public static boolean injectDone = true;
+    public static ArrayList<ArrayList<String>> timeStamps = new ArrayList<>();
+
+    public static boolean injectDone = true;
 	public static double timeElapsed=0;
 
 	Simulator()
@@ -31,8 +35,6 @@ public class Simulator
 		OutputBuffer = new HashMap<>();
 		Links = new HashMap<>();
 		Routers = new HashMap<>();
-		//this.setUpForwadingTable();
-		//Packets = new HashMap<>();
 		this.settingTopology = true;
 		this.start();
 	}
@@ -41,7 +43,7 @@ public class Simulator
     {
 		while(true)
         {
-			iteratePackets();
+			iteratePackets(timeStamps);
 
 			if(!deadPackets.isEmpty())
             {
@@ -57,11 +59,11 @@ public class Simulator
 				break;
 			}
 		}
-		
 	}
 
-	public static void iteratePackets()
+	public static void iteratePackets(ArrayList<ArrayList<String>> timeStamps)
     {
+        ArrayList<String> aTimeStamp = new ArrayList<String>();
 		//set new event
 		for (Entry<String, Packet> entry2 : Packets.entrySet())
 		{
@@ -87,7 +89,6 @@ public class Simulator
 				//	System.out.println("leastEventTime "+leastEventTime);
 				}
 			}
-			
 		}
 		//execute the events
 		if(leastEventTime<Double.MAX_VALUE){
@@ -98,9 +99,10 @@ public class Simulator
 				boolean livingPacket = entry2.getValue().getPacketState();
 				if(livingPacket){
 					executeNextEvent(entry2.getKey(),leastEventTime);
+					addToTimeSlot(entry2.getValue(),aTimeStamp);
 				}
-				
 			}
+            timeStamps.add(aTimeStamp);
 			System.out.println("######################################################### time: "+timeElapsed+"ms");
 		}
 
@@ -115,7 +117,37 @@ public class Simulator
         }
 	}
 
-	public static void executeNextEvent(String key, double leastEventTime) {
+    private static void addToTimeSlot(Packet packet, ArrayList<String> aTimeStamp)
+    {
+        String currentLocationType = packet.getCurrentLocationType();
+        String currentLocation = packet.getCurrentLocation();
+        if (currentLocationType.equals("OutputQ"))
+        {
+            String graphLoaction = packet.getID() + " r " + currentLocation.split(" to ")[0];
+            aTimeStamp.add(graphLoaction);
+        }
+        else if (currentLocationType.equals("InputQ"))
+        {
+            String graphLoaction = packet.getID() + " r " + currentLocation.split(" to ")[1];
+            aTimeStamp.add(graphLoaction);
+        }
+        else if (currentLocationType.equals("transmittedToLink"))
+        {
+            String graphLoaction = packet.getID() + " l " + currentLocation;
+            aTimeStamp.add(graphLoaction);
+        }
+        else if (currentLocationType.equals("onLinkEdge"))
+        {
+            String graphLoaction = packet.getID() + " l " + currentLocation;
+            aTimeStamp.add(graphLoaction);
+        }
+        else
+        {
+            System.out.println("hello what is the unknown location type");
+        }
+    }
+
+    public static void executeNextEvent(String key, double leastEventTime) {
 		
 		String eventID = Packets.get(key).getNextEvent().getEventID();
 		if(eventID.equals("wait") || eventID.equals("lose") || eventID.equals("reached")){
@@ -147,7 +179,7 @@ public class Simulator
 					NextEvent newEvent = new Reach("reached",Routers.get(routerID+"").getProcessingDelay(),packetName,currentLocation);
 					Packets.get(packetName).setNextEvent(newEvent);
 					deadPackets.addLast(Packets.get(packetName));
-					Packets.get(packetName).timeDead = timeElapsed;
+					Packets.get(packetName).setTimeDead(timeElapsed);
                 }
 				else if(checkOutputQ(nextRouter,routerID,Packets.get(packetName).getSize()))
 				{
@@ -175,6 +207,7 @@ public class Simulator
 						NextEvent newEvent = new Lose("lose",Double.MAX_VALUE,packetName,currentLocation,currentLocationType);
 						Packets.get(packetName).setNextEvent(newEvent);
                         deadPackets.addLast(Packets.get(packetName));
+                        Packets.get(packetName).setTimeDead(timeElapsed);
 					}
 				}
 			}
@@ -187,19 +220,22 @@ public class Simulator
 		else if(currentLocationType.equals("OutputQ")){
 			
 	//		System.out.println(Packets.get(packetName).getID()+" is in outputQ "+currentLocation);
-			if(OutputBuffer.get(currentLocation).packetIsAtExit(packetName.toString())){
-				if(Links.get(currentLocation).linkIsClear())
-				{
-					Links.get(currentLocation).acquireLink();
-					System.out.println(Packets.get(packetName).getID()+" ############is in outputQ "+currentLocation);
-					//System.out.println("time for transmission: "+Routers.get(currentLocation.split(" to ")[0]).getTransmittingDelay(Packets.get(packetName).getSize()));
-					NextEvent newEvent = new TransmitToLink("transmitToLink",Links.get(currentLocation).getTransmissionDelay(Packets.get(packetName).getSize()),currentLocation,currentLocation,packetName);
-					Packets.get(packetName).setNextEvent(newEvent);
-				}
-				else{
-					NextEvent newEvent = new Wait("wait",Double.MAX_VALUE,packetName,currentLocation);
-					Packets.get(packetName).setNextEvent(newEvent);
-				}
+			if(OutputBuffer.get(currentLocation).packetIsAtExit(packetName.toString()))
+			{
+			    NextEvent newEvent = new TransmitToLink("transmitToLink",Links.get(currentLocation).getTransmissionDelay(Packets.get(packetName).getSize()),currentLocation,currentLocation,packetName);
+			    Packets.get(packetName).setNextEvent(newEvent);
+//				if(Links.get(currentLocation).linkIsClear())
+//				{
+//					Links.get(currentLocation).acquireLink();
+//					System.out.println(Packets.get(packetName).getID()+" ############is in outputQ "+currentLocation);
+//					//System.out.println("time for transmission: "+Routers.get(currentLocation.split(" to ")[0]).getTransmittingDelay(Packets.get(packetName).getSize()));
+//					NextEvent newEvent = new TransmitToLink("transmitToLink",Links.get(currentLocation).getTransmissionDelay(Packets.get(packetName).getSize()),currentLocation,currentLocation,packetName);
+//					Packets.get(packetName).setNextEvent(newEvent);
+//				}
+//				else{
+//					NextEvent newEvent = new Wait("wait",Double.MAX_VALUE,packetName,currentLocation);
+//					Packets.get(packetName).setNextEvent(newEvent);
+//				}
 			}
 			else{
 				Wait newEvent = new Wait("wait",Double.MAX_VALUE,packetName,currentLocation);
@@ -218,7 +254,7 @@ public class Simulator
 				NextEvent newEvent = new Lose("lose",Double.MAX_VALUE,packetName,currentLocation);
 				Packets.get(packetName).setNextEvent(newEvent);
                 deadPackets.addLast(Packets.get(packetName));
-                Packets.get(packetName).timeDead = timeElapsed;
+                Packets.get(packetName).setTimeDead(timeElapsed);
 			}
 		}
 		else if(currentLocationType.equals("transmittedToLink")){
@@ -233,7 +269,7 @@ public class Simulator
 	}
 	private static boolean tryToPushPacket(int nextRouter, int routerID,int priorityValue, double size)
 	{
-		return OutputBuffer.get(routerID+" to "+nextRouter).priorityDiscard(priorityValue,size);
+        return OutputBuffer.get(routerID+" to "+nextRouter).priorityDiscard(priorityValue,size);
 	}
 	public static boolean checkInputQ(String currentLocation, double packetSize) {
 		return InputBuffer.get(currentLocation).addPacketVirtually(packetSize);
@@ -280,14 +316,14 @@ public class Simulator
         			int router2=Integer.valueOf(cmd[1]);
         			double linkDistance = Double.parseDouble(cmd[2]);
         			double transmissionRate = Double.parseDouble(cmd[3]);
-        			double qCapacity = transmissionRate; //as for now
+        			double qCapacity = 10; //as for now
         			
         			Link tempLink1 = new Link((router1)+" to "+(router2),"onLink",linkDistance,transmissionRate);
         			Links.put((router1)+" to "+(router2), tempLink1);
 					Controller.linkData.add(tempLink1);
         			Link tempLink2 = new Link((router2)+" to "+(router1),"onLink",linkDistance,transmissionRate);
         			Links.put((router2)+" to "+(router1), tempLink2);
-        			
+                    simpleLinks.add(router1+" to "+router2);
         			
         			Queue tempQ1 = new Queue((router1)+" to "+(router2),"InputQ",""+(router2),qCapacity);
         			Queue tempQ2 = new Queue((router2)+" to "+(router1),"InputQ",""+(router1),qCapacity);
@@ -343,6 +379,7 @@ public class Simulator
                             {
                                 System.out.println(sourceRouter + " to " + sourceRouter + " InputQ is full " + packetID + " is lost");
                                 deadPackets.addLast(Packets.get(packetID));
+                                Packets.get(packetID).setTimeDead(timeElapsed);
                             }
                             Controller.packetData.add(packet);
                     }
