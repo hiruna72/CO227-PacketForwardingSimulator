@@ -1,0 +1,64 @@
+p1 is processed and switched to outputQ 1 to 2
+p2 is processed and switched to outputQ 3 to 2
+p3 is processed and switched to outputQ 0 to 2
+######################################################### time: 0.0 ms
+p1 is transmitted to link 1 to 2
+p2 is transmitting
+p3 is transmitted to link 0 to 2
+######################################################### time: 4.0 ms
+p1 is propagating on link 1 to 2
+p2 is transmitted to link 3 to 2
+p3 is propagating on link 0 to 2
+######################################################### time: 4.705882352941177 ms
+p1 is propagated through 1 to 2
+p2 is propagating on link 3 to 2
+p3 is propagated through 0 to 2
+######################################################### time: 5.0 ms
+p1 is stored in the InputQ 1 to 2
+p2 is propagating on link 3 to 2
+p3 is stored in the InputQ 0 to 2
+######################################################### time: 5.0 ms
+p1 is processed and switched to outputQ 2 to 3
+p2 is propagating on link 3 to 2
+p3 is processed and switched to outputQ 2 to 3
+######################################################### time: 5.0 ms
+p1 is transmitting
+p2 is propagated through 3 to 2
+p3 is waiting on 2 to 3
+######################################################### time: 6.705882352941177 ms
+p1 is transmitting
+p2 is stored in the InputQ 3 to 2
+p3 is waiting on 2 to 3
+######################################################### time: 6.705882352941177 ms
+p1 is transmitting
+p2 is processed and switched to outputQ 2 to 1
+p3 is waiting on 2 to 3
+######################################################### time: 6.705882352941177 ms
+p1 is transmitted to link 2 to 3
+p2 is transmitting
+p3 is waiting on 2 to 3
+######################################################### time: 9.705882352941178 ms
+p1 is propagating on link 2 to 3
+p2 is transmitted to link 2 to 1
+p3 is transmitting
+######################################################### time: 10.705882352941178 ms
+p1 is propagated through 2 to 3
+p2 is propagated through 2 to 1
+p3 is transmitting
+######################################################### time: 11.705882352941178 ms
+p1 is stored in the InputQ 2 to 3
+p2 is stored in the InputQ 2 to 1
+p3 is transmitting
+######################################################### time: 11.705882352941178 ms
+p1 reached destination
+p2 reached destination
+p3 is transmitting
+######################################################### time: 11.705882352941178 ms
+p3 is transmitted to link 2 to 3
+######################################################### time: 14.411764705882355 ms
+p3 is propagated through 2 to 3
+######################################################### time: 16.411764705882355 ms
+p3 is stored in the InputQ 2 to 3
+######################################################### time: 16.411764705882355 ms
+p3 reached destination
+######################################################### time: 16.411764705882355 ms
