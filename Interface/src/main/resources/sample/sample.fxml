@@ -143,7 +143,7 @@
                               <DropShadow />
                            </effect>
                         </Separator>
-                        <Button fx:id="simulateButton" disable="true" layoutX="260.0" layoutY="35.0" mnemonicParsing="false" onAction="#packetSimulation" prefHeight="33.0" prefWidth="125.0" styleClass="green" stylesheets="@styles.css" text="Simulate" />
+                        <Button fx:id="simulateButton" disable="true" layoutX="67.0" layoutY="35.0" mnemonicParsing="false" onAction="#packetSimulation" prefHeight="33.0" prefWidth="125.0" styleClass="green" stylesheets="@styles.css" text="Simulate" />
                         <Separator layoutY="94.0" opacity="0.5" prefHeight="6.0" prefWidth="480.0">
                            <effect>
                               <DropShadow height="23.97" radius="12.225" spread="0.83" width="26.93" />
@@ -152,7 +152,7 @@
                            <effect>
                               <DropShadow height="26.93" radius="13.7075" spread="0.83" width="29.9" />
                            </effect></Separator>
-                        <Button fx:id="resetAllButton" layoutX="450.0" layoutY="34.0" mnemonicParsing="false" onAction="#resetAll" prefHeight="34.0" prefWidth="124.0" styleClass="round-red" stylesheets="@styles.css" text="Reset" />
+                        <Button fx:id="resetAllButton" layoutX="637.0" layoutY="35.0" mnemonicParsing="false" onAction="#resetAll" prefHeight="34.0" prefWidth="124.0" styleClass="round-red" stylesheets="@styles.css" text="Reset" />
                         <Label layoutX="3.0" layoutY="154.0" prefHeight="17.0" prefWidth="88.0" text="No. of Routers" textFill="#1a1a1b">
                            <font>
                               <Font name="Modern No. 20" size="15.0" />
@@ -163,6 +163,8 @@
                               <DropShadow height="23.97" radius="12.9675" spread="0.81" width="29.9" />
                            </effect></Separator>
                         <Button fx:id="openPacketFileButton" disable="true" layoutX="716.0" layoutY="102.0" mnemonicParsing="false" onMouseClicked="#openPacketFile" prefHeight="30.0" prefWidth="88.0" styleClass="rich-blue" stylesheets="@styles.css" text="Load a text file" />
+                        <Button fx:id="drawGraphButton" disable="true" layoutX="247.0" layoutY="35.0" mnemonicParsing="false" onAction="#drawGraph" prefHeight="33.0" prefWidth="125.0" styleClass="green" stylesheets="@styles.css" text="Graph" />
+                        <Button fx:id="runGraphButton" disable="true" layoutX="439.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#runGraph" prefHeight="33.0" prefWidth="125.0" styleClass="green" stylesheets="@styles.css" text="Animate" />
                      </children>
                   </AnchorPane>
                </content>
